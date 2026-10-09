@@ -1,31 +1,98 @@
 <!DOCTYPE html><html lang="id"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pustaka Nusantara</title>
 <style>
-:root{--w1:#5a3820;--w2:#8b5a2b;--cr:#f3e6c8;--em:#e0b04a;--tx:#3b2414}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
-html,body{margin:0;height:100%;overflow:hidden;background:#2b1a0e;font-family:Georgia,serif;touch-action:manipulation}
-#st{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;overflow:hidden;background:repeating-linear-gradient(90deg,#e9d6ad 0 118px,#dcc496 118px 120px),#e9d6ad;color:var(--tx)}
-.scr{position:absolute;inset:0;display:none}.scr.on{display:block}
-.btn{min-width:240px;min-height:100px;padding:0 40px;font:700 44px Georgia,serif;color:var(--cr);background:linear-gradient(var(--w2),var(--w1));border:6px solid #3a2210;border-radius:22px;box-shadow:0 8px 0 #2a180a;cursor:pointer}
-.btn:active{transform:translateY(6px);box-shadow:0 2px 0 #2a180a}
-.btn.sm{min-width:150px;min-height:76px;font-size:32px}
-h1{font-size:150px;margin:0;color:var(--w1);text-shadow:4px 5px 0 var(--em);letter-spacing:4px;text-align:center}
-.c{position:absolute;left:0;right:0;text-align:center}
-#hud{position:absolute;top:24px;left:30px;right:30px;display:flex;gap:24px;align-items:center;font-size:44px;font-weight:700;z-index:20}
-.chip{background:var(--w1);color:var(--cr);padding:12px 32px;border-radius:40px;border:5px solid #3a2210}
-#rack{position:absolute;left:320px;right:320px;bottom:90px;height:240px;background:linear-gradient(var(--w2),var(--w1));border:10px solid #3a2210;border-radius:14px;display:flex;align-items:flex-end;justify-content:center;gap:20px;padding:0 20px 18px}
-#rack:before{content:"";position:absolute;left:0;right:0;bottom:0;height:18px;background:#3a2210}
-.bk{position:relative;width:140px;height:160px;border:4px solid rgba(0,0,0,.45);border-radius:8px 12px 12px 8px;color:#fff;font:700 20px Georgia,serif;padding:10px 6px;text-align:center;box-shadow:inset 10px 0 0 rgba(0,0,0,.22),4px 4px 0 rgba(0,0,0,.3);cursor:pointer;z-index:1}
-.bk i{display:block;font-size:15px;font-weight:400;margin-top:6px;background:rgba(0,0,0,.3);border-radius:20px;padding:3px}
-.bk.hl{animation:bn .7s infinite alternate}@keyframes bn{to{transform:translateY(-14px)}}
-#cu{position:absolute;bottom:360px;left:-300px;width:220px;height:260px;transition:left 2.6s linear;z-index:10;cursor:pointer;display:none}
-#cu .hd{position:absolute;bottom:0;left:30px;width:160px;height:160px;border-radius:50%;background:#c58a5a;border:6px solid #3a2210;text-align:center;font-size:90px;line-height:150px}
-#cu.sel .hd{box-shadow:0 0 0 14px var(--em)}
-#bub{position:absolute;bottom:170px;left:-30px;width:300px;background:#fff;border:6px solid #3a2210;border-radius:30px;padding:14px;font-size:28px;text-align:center;font-weight:700}
-#hint{position:absolute;left:0;right:0;top:120px;text-align:center;font-size:36px;color:var(--w1);font-weight:700;z-index:15}
-#mn{position:absolute;top:18px;right:30px;z-index:20}
-#pop{position:absolute;inset:0;background:rgba(30,16,6,.7);display:none;align-items:center;justify-content:center;z-index:99}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#E9D6AD;font-family:Georgia,serif}
+#app{min-height:100vh;display:flex;flex-direction:column}
+.topbar{padding:12px;display:flex;gap:10px;flex-wrap:wrap}
+.chip{background:#5a3820;color:#f3e6c8;padding:8px 16px;border-radius:30px;border:3px solid #3a2210;font:700 16px sans-serif}
+.btn{padding:12px 24px;font:700 18px Georgia,serif;color:#f3e6c8;background:#5a3820;border:4px solid #3a2210;border-radius:14px;box-shadow:0 4px 0 #3a2210;cursor:pointer}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #3a2210}
+.screen{display:none;flex:1;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}
+.screen.on{display:flex}
+h1{font-size:56px;margin:0;color:#5a3820;text-shadow:3px 3px 0 #e0b04a;line-height:.9}
+
+/* SHOP - INI FIX ANTI KETIMBUN */
+#shopScreen{background:linear-gradient(#bfe2f5 0 45%,#e8d3a0 45%);flex:1;position:relative;display:none;flex-direction:column;overflow:hidden}
+#shopScreen.on{display:flex}
+#hint{margin:70px 10px;text-align:center;font:700 16px sans-serif;color:#5a3820;background:rgba(255,255,255,.7);padding:6px 12px;border-radius:20px;align-self:center}
+#bo{width:90%;max-width:360px;height:180px;background:#3f7a52;border:5px solid #28503a;border-radius:10px;margin:10px auto;display:flex;flex-direction:column;align-items:center;padding-top:8px;position:relative}
+#bo b{background:#f3e6c8;color:#28503a;padding:3px 14px;font-size:18px;border-radius:6px;border:3px solid #3a2210}
+#cu{display:none;margin-top:8px;width:200px;background:#fff;border:3px solid #3a2210;border-radius:14px;padding:6px 8px;align-items:center;gap:8px;box-shadow:0 3px 0 #3a2210;cursor:pointer}
+#cu.on{display:flex}
+#cu.hd{width:50px;height:50px;border-radius:50%;background:#e8b07a;border:3px solid #3a2210;display:flex;align-items:center;justify-content:center;font-size:28px}
+#bub{font:700 13px sans-serif}
+#rack{margin-top:auto;background:linear-gradient(#8b5a2b,#5a3820);border-top:6px solid #3a2210;padding:12px 10px 14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;min-height:110px}
+.bk{width:90px;height:100px;border:3px solid #000;border-radius:6px 10px 10px 6px;color:#fff;font:700 11px Georgia,serif;padding:6px 4px;text-align:center;box-shadow:inset 6px 0 0 rgba(0,0,0,.2),2px 2px 0 rgba(0,0,0,.3);cursor:pointer}
+.bk i{display:block;font-size:9px;margin-top:4px;background:rgba(0,0,0,.3);border-radius:10px;padding:2px}
+.bk.hl{transform:translateY(-6px)}
+#pop{position:fixed;inset:0;background:rgba(30,16,6,.7);display:none;align-items:center;justify-content:center;z-index:99;padding:16px}
 #pop.on{display:flex}
-#bx{width:1200px;max-height:960px;background:var(--cr);border:12px solid var(--w1);border-radius:28px;padding:44px 60px;text-align:center;box-shadow:0 14px 0 #2a180a}
-#bx h2{font-size:64
+#bx{width:100%;max-width:500px;background:#f3e6c8;border:6px solid #5a3820;border-radius:18px;padding:20px}
+#copyright{text-align:center;padding:8px;font:700 10px sans-serif;letter-spacing:2px;color:#8B7355;background:#FDEDC3;border-top:2px dashed #D7C19A}
+</style></head><body>
+<div id="app">
+<div class="screen on" id="menu">
+<h1>Pustaka<br>Nusantara</h1>
+<p style="font-size:14px;opacity:.7">Toko buku mungil bernuansa kayu</p>
+<div style="display:flex;gap:12px;margin-top:16px"><button class="btn" id="bm">Mulai</button><button class="btn" id="bk">Koleksi</button></div>
+</div>
+
+<div id="shopScreen">
+<div class="topbar"><span class="chip">💰 Rp <span class="um">0</span></span><span class="chip">📅 Hari <span class="hr">1</span></span><span class="chip">✅<span id="sv"></span></span><button class="btn" style="margin-left:auto;padding:6px 12px;font-size:14px" id="mn">Menu</button></div>
+<div id="hint">Tap pelanggan, lalu tap buku</div>
+<div id="bo"><b>BUKU</b><div id="cu"><div class="hd">🙂</div><div id="bub"></div></div></div>
+<div id="rack"></div>
+</div>
+
+<div class="screen" id="peta"><h2 style="font-size:32px">Pilih Kota</h2><div id="pl" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"></div><button class="btn" id="pb2" style="margin-top:20px">Kembali</button></div>
+<div class="screen" id="kol"><h2>📖 Koleksi</h2><div id="kl"></div><button class="btn" id="kb" style="margin-top:20px">Kembali</button></div>
+
+<div id="pop"><div id="bx"><h2 id="pt"></h2><div id="pb"></div><button class="btn" id="pc" style="margin-top:12px">Tutup</button></div></div>
+<div id="copyright">BY FITRI QUR'AN — BLITAR • 2026</div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const B=[
+{t:'Malin Kundang',g:'Legenda',c:'#b5483a',s:['Anak nelayan jadi saudagar, malu akui ibu, jadi batu.']},
+{t:'Timun Mas',g:'Dongeng',c:'#4a8c5c',s:['Timun Mas kabur dari raksasa pakai bungkusan sakti.']},
+{t:'Bawang Merah Putih',g:'Dongeng',c:'#c9983a',s:['Bawang Putih baik hati dapat labu harta.']},
+{t:'Sangkuriang',g:'Legenda',c:'#5b6fb0',s:['Perahu ditendang jadi Tangkuban Parahu.']},
+{t:'Gajah Mada',g:'Sejarah',c:'#8a4f9e',s:['Sumpah Palapa.']},
+{t:'Sumpah Pemuda',g:'Sejarah',c:'#2f8a9a',s:['1928 satu tanah air bangsa bahasa.']},
+{t:'Proklamator Blitar',g:'Sejarah',c:'#a33a3a',k:'Blitar',s:['Soekarno kecil di Blitar.']},
+{t:'Roro Jonggrang',g:'Legenda',c:'#d0702a',k:'Yogyakarta',s:['1000 candi semalam, jadi arca.']},
+{t:'Putri Mandalika',g:'Legenda',c:'#1f8f8a',k:'Lombok',s:['Terjun jadi nyale.']}];
+const K=[{n:'Blitar',e:'🏛️',goal:5,bg:'#bfe2f5'},{n:'Yogyakarta',e:'🏯',goal:7,bg:'#f7d9a0'},{n:'Lombok',e:'🏝️',goal:9,bg:'#9fe3e6'}];
+let city=0,ok=0,run=0,served=0,shelf=[],cur=null,tm=null;
+let S={uang:0,hari:1,read:[],sold:[],done:[],st:{}};try{Object.assign(S,JSON.parse(localStorage.getItem('pustaka')||'{}'))}catch(e){}
+const save=()=>localStorage.setItem('pustaka',JSON.stringify(S));
+const rp=n=>n.toLocaleString('id-ID');
+function hud(){document.querySelectorAll('.um').forEach(e=>e.textContent=rp(S.uang));document.querySelectorAll('.hr').forEach(e=>e.textContent=S.hari);$('sv').textContent=ok+'·'+served+'/5'}
+function go(name){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));$('shopScreen').classList.remove('on');if(name==='shop'){$('shopScreen').classList.add('on')}else{$(name).classList.add('on')}hud()}
+function pop(t,ps){$('pt').textContent=t;$('pb').innerHTML=ps.map(p=>'<p>'+p+'</p>').join('');$('pop').classList.add('on')}
+$('pc').onclick=()=>$('pop').classList.remove('on');
+function startDay(){
+ run++;clearTimeout(tm);ok=0;served=0;$('cu').classList.remove('on');cur=null;
+ $('hint').textContent='📍 '+K[city].n+' · Stamp '+(S.st[K[city].n]||0)+'/'+K[city].goal+' · Tap pelanggan lalu tap buku';
+ $('shopScreen').style.background='linear-gradient('+K[city].bg+' 0 45%,#e8d3a0 45%)';
+ shelf=B.filter(b=>!b.k||S.done.includes(b.k)).sort(()=>Math.random()-.5).slice(0,4);hud();
+ const r=$('rack');r.innerHTML='';shelf.forEach(b=>{const d=document.createElement('div');d.className='bk';d.style.background=b.c;d.innerHTML=b.t+'<i>'+b.g+'</i>';d.onclick=()=>tapBook(b);r.appendChild(d)});
+ setTimeout(nextCust,600);
+}
+function nextCust(){
+ const el=$('cu');const want=shelf[Math.floor(Math.random()*shelf.length)].g;
+ el.classList.add('on');el.querySelector('.hd').textContent=['👩‍🏫','👧','👦'][Math.floor(Math.random()*3)];
+ $('bub').textContent='Cari buku '+want+'!';cur={want,tries:0,sel:false};
+}
+$('cu').onclick=()=>{if(!cur)return;cur.sel=!cur.sel;$('cu').style.outline=cur.sel?'4px solid #e0b04a':'';document.querySelectorAll('.bk').forEach(b=>b.classList.toggle('hl',cur.sel))};
+function leave(){cur=null;$('cu').classList.remove('on');document.querySelectorAll('.bk').forEach(b=>b.classList.remove('hl'));served++;hud();if(served>=5){S.hari++;save();pop('Hari selesai',['Puas: '+ok+'/5']);setTimeout(()=>go('peta'),1000)}else setTimeout(nextCust,800)}
+function tapBook(b){
+ if(cur&&cur.sel){if(b.g===cur.want){S.uang+=15000;ok++;if(S.st[K[city].n]===undefined)S.st[K[city].n]=0;S.st[K[city].n]++;if(S.st[K[city].n]>=K[city].goal&&!S.done.includes(K[city].n))S.done.push(K[city].n);$('bub').textContent='Makasih! +15k';save();hud();setTimeout(leave,800)}else{cur.tries++;$('bub').textContent='Bukan '+cur.want;if(cur.tries>=2){$('bub').textContent='Cari di toko lain';setTimeout(leave,800)}}}
+ else{pop(b.t,b.s)}
+}
+function peta(){$('pl').innerHTML=K.map((k,i)=>{const o=i===0||S.done.includes(K[i-1].n);return `<button class="btn" data-i="${i}" ${o?'':'disabled'} style="width:140px"><span style="font-size:40px">${k.e}</span><br>${k.n}<br><small>${S.st[k.n]||0}/${k.goal}</small></button>`}).join('');$('pl').querySelectorAll('button').forEach(b=>b.onclick=()=>{city=+b.dataset.i;go('shop');startDay()});go('peta')}
+$('bm').onclick=peta;$('pb2').onclick=()=>go('menu');$('bk').onclick=()=>{ $('kl').innerHTML=B.map(b=>`<div style="background:#fff;border:2px solid #5a3820;border-radius:10px;padding:8px;margin:6px">${b.t} - ${b.g}</div>`).join('');go('kol')};$('kb').onclick=()=>go('menu');$('mn').onclick=()=>go('menu');
+hud();
+</script></body></html>
