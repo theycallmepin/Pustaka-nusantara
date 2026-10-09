@@ -1,27 +1,67 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Pustaka Nusantara</title><style>
-*{box-sizing:border-box}html,body{margin:0;background:#E7D8B9;height:100dvh;display:flex;flex-direction:column;color:#4A2F1E;font-family:Georgia,serif;overflow:hidden}
-.top{flex-shrink:0;padding:12px 16px;display:flex;gap:8px}.pill{background:#4A2F1E;color:#E7D8B9;padding:5px 14px;border-radius:20px;font:700 11px sans-serif}
+*{box-sizing:border-box}html,body{margin:0;background:#E7D8B9;height:100dvh;display:flex;flex-direction:column;color:#4A2F1E;font-family:Georgia,serif}
+.top{padding:12px 16px;display:flex;gap:8px;flex-shrink:0}.pill{background:#4A2F1E;color:#E7D8B9;padding:5px 14px;border-radius:20px;font:700 11px sans-serif}
 .mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
 .judul{font-size:42px;font-weight:900;line-height:.95}
-.btns{margin-top:18px;display:flex;gap:10px}.btn{background:#5C3A24;color:#E7D8B9;border:2px solid #3D2412;border-bottom:3px solid #3D2412;padding:9px 22px;border-radius:8px;font:700 12px sans-serif;cursor:pointer}
-.tulis{margin-top:26px;font:700 11px sans-serif;color:#5C3A24;animation:nafas 3s ease-in-out infinite;max-width:260px}
-@keyframes nafas{0%,100%{opacity:0;transform:translateY(6px)}50%{opacity:1;transform:translateY(0)}}
-.credit{flex-shrink:0;text-align:center;padding:8px;font:600 9.5px sans-serif;color:#8B7355;background:#E7D8B9}
-#shop,#col{display:none;flex:1;flex-direction:column;overflow:auto;min-height:0;background:#FFF8EC}
-.shelf{background:linear-gradient(#F3E4C0,#D7C19A);border-bottom:4px solid #4A2F1E;padding:12px;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.btns{margin-top:18px;display:flex;gap:10px}.btn{background:#5C3A24;color:#E7D8B9;border:2px solid #3D2412;border-bottom:3px solid #3D2412;padding:12px 26px;border-radius:8px;font:700 13px sans-serif;cursor:pointer}
+.tulis{margin-top:26px;font:700 11px sans-serif;color:#5C3A24;animation:nafas 3s ease-in-out infinite}
+@keyframes nafas{0%,100%{opacity:0}50%{opacity:1}}
+.credit{text-align:center;padding:8px;font:600 9.5px sans-serif;color:#8B7355}
+#shop,#col{display:none;flex:1;flex-direction:column;overflow:auto;background:#FFF8EC}
+.shelf{background:#F3E4C0;border-bottom:4px solid #4A2F1E;padding:12px;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
 .bk{background:#fff;border:2px solid #4A2F1E;border-radius:6px;height:36px;display:flex;align-items:center;justify-content:center;font:700 8px sans-serif}
 .main{flex:1;padding:12px;overflow:auto}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;max-width:800px;margin:0 auto}
-.card{background:#fff;border:2px solid #4A2F1E;border-radius:8px;padding:10px;cursor:pointer;box-shadow:0 3px 0 #4A2F1E;transition:.1s}.card:active{transform:translateY(3px);box-shadow:none}
-.card b{font:700 11px Georgia;display:block}.card i{font:500 9px sans-serif;background:#FEF3D7;border:1.5px solid #C9A86A;border-radius:5px;padding:2px 6px;display:inline-block;margin-top:4px}
+.card{background:#fff;border:2px solid #4A2F1E;border-radius:8px;padding:10px;cursor:pointer;box-shadow:0 3px 0 #4A2F1E}
 .ab{border:2px solid #4A2F1E;border-radius:8px;padding:7px 12px;font:700 11px sans-serif;background:#E7D8B9;cursor:pointer}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}.box{background:#FFF8EC;border:3px solid #4A2F1E;border-radius:12px;padding:16px;max-width:360px;width:100%}
 </style></head><body>
-<div class="top"><div class="pill">Rp <span id="rp">0</span>k</div><div class="pill">Hari <span id="hr">1</span>/7</div><div id="back" style="display:none;margin-left:auto"><button class="ab" onclick="home()">← Home</button></div></div>
-<div class="mid" id="home"><div class="judul">Pustaka<br>Nusantara</div><div class="btns"><button class="btn" onclick="go()">Mulai</button><button class="btn" style="background:#8B6A4A" onclick="openCol()">Koleksi</button></div><div class="tulis">Toko buku mungil bernuansa kayu perpustakaan Indonesia</div></div>
-<div id="shop"><div class="shelf" id="shelf"></div><div style="text-align:center;margin:-12px auto 8px;background:#fff;border:2px solid #4A2F1E;border-radius:12px;padding:8px 14px;max-width:300px"><div id="bub" style="font:700 11px sans-serif">Halo!</div><div style="font:700 10px sans-serif"><span id="cn">Bu Ani</span> cari <span id="cw">Sejarah</span></div></div><div class="main"><p id="hint" style="text-align:center;font:700 11px sans-serif">Klik buku yang sesuai!</p><div class="grid" id="grid"></div><div style="display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap"><button class="ab" style="background:#FFC96A" onclick="newCust()">Ganti</button><button class="ab" style="background:#7BC67E;color:#fff" onclick="restock()">Restock -10k</button><button class="ab" style="background:#FF8FA3;color:#fff" onclick="tutup()">Tutup</button></div></div></div>
-<div id="col"><div class="main"><h3 style="text-align:center">Koleksi Cerita</h3><div id="clist" style="max-width:600px;margin:0 auto;display:grid;gap:8px"></div></div></div>
+<div class="top"><div class="pill">Rp <span id="rp">0</span>k</div><div class="pill">Hari <span id="hr">1</span>/7</div><div id="back" style="display:none;margin-left:auto"><button class="ab" onclick="balikHome()">← Home</button></div></div>
+
+<div class="mid" id="home">
+<div class="judul">Pustaka<br>Nusantara</div>
+<div class="btns">
+<button class="btn" onclick="mulaiGame()">Mulai</button>
+<button class="btn" style="background:#8B6A4A" onclick="bukaKoleksi()">Koleksi</button>
+</div>
+<div class="tulis">Toko buku mungil bernuansa kayu perpustakaan Indonesia</div>
+</div>
+
+<div id="shop"><div class="shelf" id="shelf"></div><div style="text-align:center;margin:-10px auto 8px;background:#fff;border:2px solid #4A2F1E;border-radius:12px;padding:8px 14px"><div id="bub">Halo!</div><div style="font:700 10px sans-serif"><span id="cn">Bu Ani</span> cari <span id="cw">Sejarah</span></div></div><div class="main"><p id="hint" style="text-align:center;font:700 11px sans-serif">Klik buku yang sesuai!</p><div class="grid" id="grid"></div><div style="display:flex;gap:8px;justify-content:center;margin-top:14px"><button class="ab" style="background:#FFC96A" onclick="gantiPelanggan()">Ganti</button><button class="ab" style="background:#7BC67E;color:#fff" onclick="restockToko()">Restock -10k</button><button class="ab" style="background:#FF8FA3;color:#fff" onclick="tutupToko()">Tutup</button></div></div></div>
+
+<div id="col"><div class="main"><h3 style="text-align:center">Koleksi</h3><div id="clist" style="display:grid;gap:8px;max-width:600px;margin:0 auto"></div></div></div>
+
 <div class="credit">by Fitri Qur'an</div>
-<div id="m" class="modal" onclick="this.style.display='none'"><div class="box"><h4 id="mt" style="margin:0 0 8px"></h4><p id="md" style="font:500 12px sans-serif;line-height:1.5;margin:0 0 12px"></p><button class="ab" style="width:100%;background:#5C3A24;color:#E7D8B9" onclick="document.getElementById('m').style.display='none'">Tutup</button></div></div>
+
 <script>
-let D=1,M=0,C=null;const B=[{t:"Lutung Kasarung",g:"Legenda",d:"Putri Purbasari yang baik hati dikutuk jadi lutung oleh kakaknya. Dengan ketulusan, kutukan hilang."},{t:"Timun Mas",g:"Dongeng",d:"Bayi dari timun emas yang lari dari raksasa Buto Ijo dengan bekal biji ajaib."},{t:"Malin Kundang",g:"Legenda",d:"Anak durhaka yang dikutuk jadi batu karena malu mengakui ibunya."},{t:"Bawang Merah Putih",g:"Dongeng",d:"Bawang Putih yang sabar akhirnya bahagia, Bawang Merah dan ibunya mendapat balasan."},{t:"Sangkuriang",g:"Legenda",d:"Yang menendang perahu jadi Gunung Tangkuban Perahu karena cintanya ditolak Dayang Sumbi."},{t:"Keong Mas",g:"Dongeng",d:"Putri yang dikutuk jadi keong emas, diselamatkan oleh ketulusan."},{t:"Roro
+let D=1,M=0,C=null;
+const B=[{t:"Lutung Kasarung",g:"Legenda"},{t:"Timun Mas",g:"Dongeng"},{t:"Malin Kundang",g:"Legenda"},{t:"Bawang Merah Putih",g:"Dongeng"},{t:"Roro Jonggrang",g:"Sejarah"}];
+const P=[{n:"Bu Ani",w:"Sejarah"},{n:"Dek Sari",w:"Dongeng"},{n:"Mas Budi",w:"Legenda"}];
+let S=[...B].sort(()=>.5-Math.random()).slice(0,5);
+
+function renderToko(){document.getElementById('shelf').innerHTML=S.map(b=>`<div class=bk>${b.t.split(' ')[0]}</div>`).join('');document.getElementById('grid').innerHTML=S.map((b,i)=>`<div class=card onclick="jualBuku(${i})"><b>${b.t}</b><br><small>${b.g}</small></div>`).join('')}
+function gantiPelanggan(){C=P[Math.floor(Math.random()*P.length)];document.getElementById('cn').textContent=C.n;document.getElementById('cw').textContent=C.w;document.getElementById('bub').textContent=`Mau ${C.w} dong!`}
+function jualBuku(i){if(S[i].g===C.w){M+=15;document.getElementById('rp').textContent=M;S.splice(i,1);S.push(B[Math.floor(Math.random()*B.length)]);renderToko();gantiPelanggan()}else{alert(`Salah! Dia mau ${C.w}`)}}
+
+function mulaiGame(){
+  document.getElementById('home').style.display='none';
+  document.getElementById('col').style.display='none';
+  document.getElementById('shop').style.display='flex';
+  document.getElementById('back').style.display='block';
+  renderToko();gantiPelanggan();
+}
+function bukaKoleksi(){
+  document.getElementById('home').style.display='none';
+  document.getElementById('shop').style.display='none';
+  document.getElementById('col').style.display='flex';
+  document.getElementById('back').style.display='block';
+  document.getElementById('clist').innerHTML=B.map(b=>`<div style="background:#fff;border:2px solid #4A2F1E;border-radius:8px;padding:10px"><b>${b.t}</b> - ${b.g}</div>`).join('');
+}
+function balikHome(){
+  document.getElementById('shop').style.display='none';
+  document.getElementById('col').style.display='none';
+  document.getElementById('home').style.display='flex';
+  document.getElementById('back').style.display='none';
+}
+function restockToko(){if(M>=10){M-=10;document.getElementById('rp').textContent=M;S=[...B].sort(()=>.5-Math.random()).slice(0,5);renderToko()}}
+function tutupToko(){D++;if(D>7){alert(`Minggu selesai! Omzet Rp ${M}k`);D=1;M=0}document.getElementById('hr').textContent=D;document.getElementById('rp').textContent=M;renderToko();gantiPelanggan()}
+</script></body></html>
