@@ -1,12 +1,16 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Pustaka Nusantara</title><style>
-html,body{margin:0;background:#E7D8B9;height:100dvh;display:flex;flex-direction:column;font-family:Georgia,serif;color:#4A2F1E;overflow:hidden}
-.top{padding:12px 16px;display:flex;gap:8px}.pill{background:#4A2F1E;color:#E7D8B9;padding:5px 14px;border-radius:20px;font:700 11px sans-serif}
+html,body{margin:0;background:#E7D8B9;height:100dvh;display:flex;flex-direction:column;color:#4A2F1E;font-family:Georgia,serif;overflow:hidden}
+.top{padding:14px 16px;display:flex;gap:8px}.pill{background:#4A2F1E;color:#E7D8B9;padding:5px 14px;border-radius:20px;font:700 11px sans-serif}
 .mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.judul{font-size:44px;font-weight:900;line-height:.95}
-.tomb{margin-top:18px;display:flex;gap:10px}.tm{background:#5C3A24;color:#E7D8B9;border:2px solid #3D2412;border-bottom:3px solid #3D2412;padding:8px 20px;border-radius:8px;font:700 12px sans-serif}
-.tulis{margin-top:24px;font:700 11px sans-serif;color:#4A2F1E;animation:hilang 3s infinite}
-@keyframes hilang{0%,100%{opacity:0}50%{opacity:1}}
+.judul{font-size:40px;font-weight:900;line-height:.95}
+.btns{margin-top:18px;display:flex;gap:10px}.btn{background:#5C3A24;color:#E7D8B9;border:2px solid #3D2412;border-bottom:3px solid #3D2412;padding:8px 20px;border-radius:8px;font:700 12px sans-serif}
+.tulis{margin-top:26px;font:700 11px sans-serif;color:#5C3A24;animation:nafas 3s ease-in-out infinite}
+@keyframes nafas{0%,100%{opacity:0;transform:translateY(5px)}50%{opacity:1;transform:translateY(0)}}
 </style></head><body>
 <div class="top"><div class="pill">Rp 0k</div><div class="pill">Hari 1</div></div>
-<div class="mid"><div class="judul">Pustaka<br>Nusantara</div><div class="tomb"><button class="tm">Mulai</button><button class="tm" style="background:#8B6A4A">Koleksi</button></div><div class="tulis">Toko buku mungil bernuansa kayu perpustakaan Indonesia</div></div>
+<div class="mid">
+<div class="judul">Pustaka<br>Nusantara</div>
+<div class="btns"><button class="btn">Mulai</button><button class="btn" style="background:#8B6A4A">Koleksi</button></div>
+<div class="tulis">Toko buku mungil bernuansa kayu perpustakaan Indonesia</div>
+</div>
 </body></html>
