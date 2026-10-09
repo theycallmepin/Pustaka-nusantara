@@ -21,14 +21,16 @@ h1{font-size:150px;margin:0;color:var(--w1);text-shadow:4px 5px 0 var(--em);lett
 display:flex;align-items:flex-end;justify-content:center;gap:34px;padding:0 30px 28px}
 #rack:before{content:"";position:absolute;left:0;right:0;bottom:0;height:28px;background:#3a2210}
 .bk{position:relative;width:200px;height:310px;border:6px solid rgba(0,0,0,.45);border-radius:10px 14px 14px 10px;color:#fff;
-font:700 30px Georgia,serif;padding:22px 12px;text-align:center;box-shadow:inset 18px 0 0 rgba(0,0,0,.22),6px 6px 0 rgba(0,0,0,.3);cursor:pointer;z-index:1}
+font:700 27px Georgia,serif;padding:22px 8px;text-align:center;box-shadow:inset 18px 0 0 rgba(0,0,0,.22),6px 6px 0 rgba(0,0,0,.3);cursor:pointer;z-index:1}
 .bk i{display:block;font-size:24px;font-weight:400;margin-top:20px;background:rgba(0,0,0,.3);border-radius:20px;padding:4px}
-.bk.hl{animation:bn .7s infinite alternate}@keyframes bn{to{transform:translateY(-18px)}}
-#cu{position:absolute;bottom:520px;left:-300px;width:220px;height:260px;transition:left 2.6s linear;z-index:3;cursor:pointer;display:none}
-#cu .hd{position:absolute;bottom:0;left:30px;width:160px;height:160px;border-radius:50%;background:#c58a5a;border:6px solid #3a2210;text-align:center;font-size:90px;line-height:150px}
-#cu.sel .hd{box-shadow:0 0 0 14px var(--em)}
-#bub{position:absolute;bottom:170px;left:-30px;width:300px;background:#fff;border:6px solid #3a2210;border-radius:30px;padding:14px;font-size:30px;text-align:center;font-weight:700}
-#hint{position:absolute;left:0;right:0;top:130px;text-align:center;font-size:38px;color:var(--w1);font-weight:700}
+.bk.hl{animation:bn .7s infinite alternate}
+.bk{background-image:radial-gradient(circle at 50% 80%,transparent 0 26px,rgba(255,255,255,.35) 27px 30px,transparent 31px 40px,rgba(255,255,255,.2) 41px 43px,transparent 44px),linear-gradient(rgba(255,255,255,.14),rgba(0,0,0,.14))}
+.bk:after{content:"";position:absolute;top:-6px;right:26px;width:22px;height:46px;background:#c0392b;clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%)}@keyframes bn{to{transform:translateY(-18px)}}
+#cu{position:absolute;bottom:500px;left:-300px;width:220px;height:260px;transition:left 2.6s linear;z-index:3;cursor:pointer;display:none}
+#cu .hd{position:absolute;bottom:0;left:30px;width:160px;height:260px}
+#cu.sel .hd{filter:drop-shadow(0 0 10px #e0b04a) drop-shadow(0 0 10px #e0b04a)}
+#bub{position:absolute;bottom:150px;left:165px;width:300px;background:#fff;border:6px solid #3a2210;border-radius:30px;padding:14px;font-size:30px;text-align:center;font-weight:700}
+#hint{position:absolute;left:50%;top:122px;transform:translateX(-50%);white-space:nowrap;z-index:6;background:#f3e6c8;border:5px solid var(--w1);border-radius:40px;padding:8px 36px;font-size:32px;color:var(--w1);font-weight:700}
 #mn{position:absolute;top:18px;right:30px}
 #pop{position:absolute;inset:0;background:rgba(30,16,6,.7);display:none;align-items:center;justify-content:center;z-index:9}
 #pop.on{display:flex}
@@ -42,9 +44,9 @@ font:700 30px Georgia,serif;padding:22px 12px;text-align:center;box-shadow:inset
 .pg{display:flex;justify-content:center;gap:50px;margin-bottom:24px}.pol{position:relative;width:340px;background:#fff;padding:16px 16px 10px;border-radius:6px;box-shadow:0 8px 0 rgba(0,0,0,.2);text-align:center;font-size:36px;transform:rotate(-2deg)}
 .pol:nth-child(2){transform:rotate(1.5deg)}.pol:nth-child(3){transform:rotate(-1deg)}.ph{height:210px;display:flex;align-items:center;justify-content:center;font-size:110px;border-radius:4px}
 .bd{position:absolute;top:6px;right:6px;background:rgba(220,230,240,.95);padding:2px 12px;font-size:26px;border-radius:6px}.ck{position:absolute;top:-14px;right:-6px;color:#2a9d4a;font-size:70px;font-weight:700}
-#bo{position:absolute;left:600px;top:190px;width:720px;height:400px;background:#3f7a52;border:8px solid #28503a;border-radius:6px}
-#bo:before{content:"";position:absolute;left:-40px;right:-40px;top:-70px;height:80px;background:#3a3a44;border-radius:6px}
-#bo b{position:absolute;left:50%;top:20px;transform:translateX(-50%);background:#f3e6c8;color:#28503a;padding:4px 30px;font-size:44px;border-radius:6px}
+#bo{position:absolute;left:560px;top:200px;width:800px;height:480px}
+
+
 </style></head><body>
 <div id="st">
 <div class="scr on" id="menu">
@@ -57,7 +59,7 @@ font:700 30px Georgia,serif;padding:22px 12px;text-align:center;box-shadow:inset
  <div id="hud"><span class="chip">💰 Rp <b class="um">0</b></span><span class="chip">📅 Hari <b class="hr">1</b></span><span class="chip">👥 <b id="sv"></b></span></div>
  <button class="btn sm" id="mn">Menu</button>
  <div id="hint">Tap pelanggan, lalu tap buku. Tap buku saja untuk membaca ceritanya.</div>
- <div id="bo"><b>BUKU</b></div>
+ <div id="bo"><svg viewBox="0 0 800 480"><rect x="40" y="60" width="720" height="430" fill="#4a8a5c"/><g stroke="#3a7048" stroke-width="4"><path d="M120 60v430M200 60v430M280 60v430M360 60v430M440 60v430M520 60v430M600 60v430M680 60v430"/></g><path d="M10 70L60 0H740L790 70z" fill="#3b3b48"/><rect x="30" y="62" width="740" height="14" rx="4" fill="#2f5e3d"/><rect x="300" y="14" width="200" height="46" rx="8" fill="#f3e6c8" stroke="#28503a" stroke-width="5"/><text x="400" y="50" text-anchor="middle" font-size="34" font-weight="700" fill="#28503a" font-family="Georgia,serif">BUKU</text><path d="M60 88Q400 148 740 88" stroke="#333" stroke-width="3" fill="none"/><circle cx="100" cy="97" r="9" fill="#f2c94c"/><circle cx="180" cy="108" r="9" fill="#e0604a"/><circle cx="260" cy="115" r="9" fill="#6fcf97"/><circle cx="340" cy="119" r="9" fill="#56a8e8"/><circle cx="420" cy="119" r="9" fill="#f2c94c"/><circle cx="500" cy="115" r="9" fill="#e0604a"/><circle cx="580" cy="108" r="9" fill="#6fcf97"/><circle cx="660" cy="97" r="9" fill="#56a8e8"/><rect x="80" y="160" width="170" height="170" fill="#9ad0e6" stroke="#f3e6c8" stroke-width="10"/><rect x="550" y="160" width="170" height="170" fill="#9ad0e6" stroke="#f3e6c8" stroke-width="10"/><path d="M165 160v170M80 245h170M635 160v170M550 245h170" stroke="#f3e6c8" stroke-width="6"/><rect x="70" y="330" width="190" height="40" fill="#8b5a2b"/><rect x="540" y="330" width="190" height="40" fill="#8b5a2b"/><g fill="#e8618c"><circle cx="100" cy="326" r="12"/><circle cx="150" cy="320" r="12"/><circle cx="200" cy="326" r="12"/><circle cx="240" cy="320" r="12"/></g><g fill="#f2c94c"><circle cx="570" cy="326" r="12"/><circle cx="620" cy="320" r="12"/><circle cx="670" cy="326" r="12"/><circle cx="710" cy="320" r="12"/></g></svg></div>
  <div id="cu"><div id="bub"></div><div class="hd">🙂</div></div>
  <div id="rack"></div>
 </div>
@@ -89,7 +91,16 @@ const B=[
 {t:'Putri Mandalika',g:'Legenda',c:'#1f8f8a',k:'Lombok',s:['Putri Mandalika adalah putri raja yang cantik di Lombok. Banyak pangeran memperebutkannya hingga muncul ancaman perang antar kerajaan.','Demi menjaga perdamaian, ia terjun ke laut di pantai selatan dan menjelma menjadi cacing laut warna-warni bernama nyale. Setiap tahun masyarakat Lombok merayakannya dalam tradisi Bau Nyale.']}];
 const K=[{n:'Blitar',e:'🏛️',goal:5,bg:'#bfe2f5',item:'Cokelat Blitar 🍫'},{n:'Yogyakarta',e:'🏯',goal:7,bg:'#f7d9a0',item:'Batik Parang 🧵'},{n:'Lombok',e:'🏝️',goal:9,bg:'#9fe3e6',item:'Tenun Sukarara 🧣'}];
 let city=0,ok=0,run=0,pend=null;
+const SV=b=>'<svg viewBox="0 0 160 110" width="150" height="104">'+b+'</svg>';
+K[0].e=SV('<circle cx="128" cy="24" r="13" fill="#f2c94c"/><path d="M14 100h132l-10-16H24zM34 84h92l-8-16H42zM52 68h56l-6-16H58zM68 52h24l-4-16H72z" fill="#6b5a4a"/>');
+K[1].e=SV('<circle cx="24" cy="22" r="12" fill="#f2c94c"/><g fill="#7a5a3a"><path d="M16 100V56l12-36 12 36v44zM64 100V44l16-40 16 40v56zM120 100V56l12-36 12 36v44z"/></g><path d="M0 100h160v10H0z" fill="#5a4026"/>');
+K[2].e=SV('<circle cx="28" cy="24" r="12" fill="#f2c94c"/><path d="M0 100L56 34l22 18 28-40 54 88z" fill="#5a7a6a"/><path d="M0 90q20-10 40 0t40 0 40 0 40 0v20H0z" fill="#2a8fb0"/>');
 function stamp(){const k=K[city];if(S.done.includes(k.n))return;const n=S.st[k.n]=(S.st[k.n]||0)+1;$('hint').textContent=$('hint').textContent.replace(/Stamp \d+/,'Stamp '+n);if(n>=k.goal){S.done.push(k.n);S.items.push(k.item);pend=k}}
+function av(){
+ const [s,sh,pt,ty,hc]=[['#c58a5a','#c04a3a','#2c3e63','hijab','#5a3a7a'],['#e0b48a','#3f78b5','#4a3a2a','peci','#111'],['#a8704a','#d7a63a','#5a2a2a','bun','#2a1a10'],['#d9a577','#4a8c5c','#2f2f3f','tua','#e6e6e6'],['#b07c55','#8a4f9e','#3a3a55','pendek','#1a1208']][Math.floor(Math.random()*5)];
+ const bk=ty=='hijab'?`<path d="M40 62a40 44 0 0 1 80 0v50q-40 26-80 0z" fill="${hc}"/>`:'';
+ const fr={hijab:'',peci:`<rect x="52" y="22" width="56" height="18" rx="6" fill="#111"/>`,bun:`<circle cx="80" cy="22" r="13" fill="${hc}"/><path d="M48 54a32 32 0 0 1 64 0q-32-18-64 0z" fill="${hc}"/>`,tua:`<path d="M48 56a32 32 0 0 1 64 0q-32-14-64 0z" fill="${hc}"/><g fill="none" stroke="#333" stroke-width="2.5"><circle cx="68" cy="60" r="9"/><circle cx="92" cy="60" r="9"/><path d="M77 60h6"/></g>`,pendek:`<path d="M48 54a32 32 0 0 1 64 0q-32-18-64 0z" fill="${hc}"/>`}[ty];
+ return `<svg viewBox="0 0 160 260" width="160" height="260">${bk}<ellipse cx="80" cy="252" rx="50" ry="8" fill="rgba(0,0,0,.22)"/><rect x="58" y="170" width="18" height="76" rx="6" fill="${pt}"/><rect x="84" y="170" width="18" height="76" rx="6" fill="${pt}"/><ellipse cx="66" cy="248" rx="14" ry="6" fill="#2a1a10"/><ellipse cx="94" cy="248" rx="14" ry="6" fill="#2a1a10"/><rect x="30" y="100" width="18" height="66" rx="9" fill="${sh}"/><rect x="112" y="100" width="18" height="66" rx="9" fill="${sh}"/><circle cx="39" cy="170" r="9" fill="${s}"/><circle cx="121" cy="170" r="9" fill="${s}"/><rect x="44" y="90" width="72" height="92" rx="24" fill="${sh}"/><g fill="rgba(255,255,255,.3)"><path d="M62 110l6 8-6 8-6-8zM94 106l6 8-6 8-6-8zM78 140l6 8-6 8-6-8zM58 158l6 8-6 8-6-8zM100 156l6 8-6 8-6-8z"/></g><rect x="72" y="80" width="16" height="18" fill="${s}"/><circle cx="80" cy="58" r="30" fill="${s}"/><circle cx="68" cy="60" r="3.5" fill="#2a1a10"/><circle cx="92" cy="60" r="3.5" fill="#2a1a10"/><path d="M70 74q10 9 20 0" stroke="#7a3a2a" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="60" cy="70" r="5" fill="rgba(220,90,90,.3)"/><circle cx="100" cy="70" r="5" fill="rgba(220,90,90,.3)"/>${fr}</svg>`}
 const T=(f,m)=>{const r=run;return setTimeout(()=>{if(r==run)f()},m)};
 const sv=()=>$('sv').textContent='✅'+ok+' · '+served+'/5';
 let S={uang:0,hari:1,read:[],sold:[],up:0,done:[],items:[],st:{}};
@@ -108,13 +119,13 @@ function startDay(){
  run++;clearTimeout(tm);$('shop').style.background='linear-gradient('+K[city].bg+' 0 55%,#e8d3a0 55%)';cur=null;ok=0;$('cu').style.display='none';$('hint').textContent='📍 '+K[city].n+' · Stamp '+(S.st[K[city].n]||0)+'/'+K[city].goal+' · Tap pelanggan, lalu tap buku.';
  shelf=B.filter(b=>!b.k||S.done.includes(b.k)).sort(()=>Math.random()-.5).slice(0,3+Math.floor(Math.random()*3));served=0;sv();
  const r=$('rack');r.innerHTML='';
- shelf.forEach(b=>{const d=document.createElement('div');d.className='bk';d.style.background=b.c;d.innerHTML=b.t+'<i>'+b.g+'</i>';d.onclick=()=>tapBook(b,d);r.appendChild(d)});
+ shelf.forEach(b=>{const d=document.createElement('div');d.className='bk';d.style.backgroundColor=b.c;d.innerHTML=b.t+'<i>'+b.g+'</i>';d.onclick=()=>tapBook(b,d);r.appendChild(d)});
  tm=T(nextCust,800);
 }
 function nextCust(){
  const el=$('cu'),want=shelf[Math.floor(Math.random()*shelf.length)].g;
  el.style.transition='none';el.style.left='-300px';el.style.display='block';el.classList.remove('sel');
- el.querySelector('.hd').textContent=['🙂','👵','👦','🧑‍🎓','👨‍🦳'][Math.floor(Math.random()*5)];
+ el.querySelector('.hd').innerHTML=av();
  $('bub').textContent='Cari buku '+want+'!';
  cur={want,tries:0,ready:false,sel:false};
  void el.offsetWidth;el.style.transition='left 2.6s linear';el.style.left='820px';
