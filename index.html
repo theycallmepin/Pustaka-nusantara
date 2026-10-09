@@ -3,166 +3,98 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Pustaka Nusantara</title>
 <style>
-:root{--w1:#5a3820;--w2:#8b5a2b;--cr:#f3e6c8;--em:#e0b04a;--tx:#3b2414}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
-html,body{margin:0;height:100%;overflow:hidden;background:#2b1a0e;font-family:Georgia,'Times New Roman',serif;touch-action:manipulation}
-#st{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;overflow:hidden;
-background:repeating-linear-gradient(90deg,#e9d6ad 0 118px,#dcc496 118px 120px),#e9d6ad;color:var(--tx)}
+:root{--w1:#5a3820;--w2:#8b5a2b;--cr:#f3e6c8;--em:#e0b04a}
+*{box-sizing:border-box;user-select:none}
+html,body{margin:0;height:100%;overflow:hidden;background:#2b1a0e;font-family:Georgia,serif}
+#st{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;overflow:hidden;background:#e9d6ad}
 .scr{position:absolute;inset:0;display:none}.scr.on{display:block}
-.btn{min-width:240px;min-height:100px;padding:0 40px;font:700 44px Georgia,serif;color:var(--cr);background:linear-gradient(var(--w2),var(--w1));
-border:6px solid #3a2210;border-radius:22px;box-shadow:0 8px 0 #2a180a;cursor:pointer}
-.btn:active{transform:translateY(6px);box-shadow:0 2px 0 #2a180a}
-.btn.sm{min-width:150px;min-height:76px;font-size:32px}
-h1{font-size:150px;margin:0;color:var(--w1);text-shadow:4px 5px 0 var(--em);letter-spacing:4px;text-align:center}
+.btn{min-width:240px;min-height:100px;padding:0 40px;font:700 44px Georgia;color:#f3e6c8;background:linear-gradient(var(--w2),var(--w1));border:6px solid #3a2210;border-radius:22px;box-shadow:0 8px 0 #2a180a;cursor:pointer}
+h1{font-size:150px;margin:0;color:var(--w1);text-shadow:4px 5px 0 var(--em);text-align:center}
 .c{position:absolute;left:0;right:0;text-align:center}
 #hud{position:absolute;top:24px;left:30px;right:30px;display:flex;gap:24px;align-items:center;font-size:44px;font-weight:700}
-.chip{background:var(--w1);color:var(--cr);padding:12px 32px;border-radius:40px;border:5px solid #3a2210}
-#rack{position:absolute;left:260px;right:260px;bottom:70px;height:430px;background:linear-gradient(var(--w2),var(--w1));border:10px solid #3a2210;border-radius:14px;
-display:flex;align-items:flex-end;justify-content:center;gap:34px;padding:0 30px 28px}
+.chip{background:var(--w1);color:#f3e6c8;padding:12px 32px;border-radius:40px;border:5px solid #3a2210}
+#rack{position:absolute;left:260px;right:260px;bottom:70px;height:430px;background:linear-gradient(var(--w2),var(--w1));border:10px solid #3a2210;border-radius:14px;display:flex;align-items:flex-end;justify-content:center;gap:34px;padding:0 30px 28px}
 #rack:before{content:"";position:absolute;left:0;right:0;bottom:0;height:28px;background:#3a2210}
-.bk{position:relative;width:200px;height:310px;border:6px solid rgba(0,0,0,.45);border-radius:10px 14px 14px 10px;color:#fff;
-font:700 27px Georgia,serif;padding:22px 8px;text-align:center;box-shadow:inset 18px 0 0 rgba(0,0,0,.22),6px 6px 0 rgba(0,0,0,.3);cursor:pointer;z-index:1}
-.bk i{display:block;font-size:24px;font-weight:400;margin-top:20px;background:rgba(0,0,0,.3);border-radius:20px;padding:4px}
-.bk.hl{animation:bn .7s infinite alternate}
-.bk{background-image:radial-gradient(circle at 50% 80%,transparent 0 26px,rgba(255,255,255,.35) 27px 30px,transparent 31px 40px,rgba(255,255,255,.2) 41px 43px,transparent 44px),linear-gradient(rgba(255,255,255,.14),rgba(0,0,0,.14))}
-.bk:after{content:"";position:absolute;top:-6px;right:26px;width:22px;height:46px;background:#c0392b;clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%)}@keyframes bn{to{transform:translateY(-18px)}}
+.bk{position:relative;width:200px;height:310px;border:6px solid rgba(0,0,0,.45);border-radius:10px 14px 14px 10px;color:#fff;font:700 27px Georgia;padding:22px 8px;text-align:center;box-shadow:inset 18px 0 0 rgba(0,0,0,.22),6px 6px 0 rgba(0,0,0,.3);cursor:pointer}
+.bk i{display:block;font-size:24px;margin-top:20px;background:rgba(0,0,0,.3);border-radius:20px;padding:4px}
 #cu{position:absolute;bottom:500px;left:-300px;width:220px;height:260px;transition:left 2.6s linear;z-index:3;cursor:pointer;display:none}
-#cu .hd{position:absolute;bottom:0;left:30px;width:160px;height:260px}
-#cu.sel .hd{filter:drop-shadow(0 0 10px #e0b04a) drop-shadow(0 0 10px #e0b04a)}
 #bub{position:absolute;bottom:150px;left:165px;width:300px;background:#fff;border:6px solid #3a2210;border-radius:30px;padding:14px;font-size:30px;text-align:center;font-weight:700}
 #hint{position:absolute;left:50%;top:122px;transform:translateX(-50%);white-space:nowrap;z-index:6;background:#f3e6c8;border:5px solid var(--w1);border-radius:40px;padding:8px 36px;font-size:32px;color:var(--w1);font-weight:700}
 #mn{position:absolute;top:18px;right:30px}
 #pop{position:absolute;inset:0;background:rgba(30,16,6,.7);display:none;align-items:center;justify-content:center;z-index:9}
 #pop.on{display:flex}
-#bx{width:1200px;max-height:960px;background:var(--cr);border:12px solid var(--w1);border-radius:28px;padding:44px 60px;text-align:center;box-shadow:0 14px 0 #2a180a}
-#bx h2{font-size:64px;margin:0 0 16px;color:var(--w1)}#bx p{font-size:38px;line-height:1.5;margin:14px 0;text-align:left}
-#kl{margin:190px auto 0;width:1300px;font-size:30px}
-.row{display:flex;justify-content:space-between;background:rgba(90,56,32,.12);border-radius:16px;padding:8px 30px;margin:6px 0;font-weight:700}
-.dim{opacity:.4}
-.city{width:480px;min-height:380px;font-size:52px;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;margin:0 20px}
-.city span{font-size:110px}.city small{font-size:30px;font-weight:400}.city:disabled{opacity:.45;filter:grayscale(1)}
-.pg{display:flex;justify-content:center;gap:50px;margin-bottom:24px}.pol{position:relative;width:340px;background:#fff;padding:16px 16px 10px;border-radius:6px;box-shadow:0 8px 0 rgba(0,0,0,.2);text-align:center;font-size:36px;transform:rotate(-2deg)}
-.pol:nth-child(2){transform:rotate(1.5deg)}.pol:nth-child(3){transform:rotate(-1deg)}.ph{height:210px;display:flex;align-items:center;justify-content:center;font-size:110px;border-radius:4px}
-.bd{position:absolute;top:6px;right:6px;background:rgba(220,230,240,.95);padding:2px 12px;font-size:26px;border-radius:6px}.ck{position:absolute;top:-14px;right:-6px;color:#2a9d4a;font-size:70px;font-weight:700}
-#bo{position:absolute;left:560px;top:200px;width:800px;height:480px}
-
-
-</style></head><body>
-<div id="st">
-<div class="scr on" id="menu">
- <div id="hud"><span class="chip">💰 Rp <b class="um">0</b></span><span class="chip">📅 Hari <b class="hr">1</b></span></div>
- <div class="c" style="top:230px"><h1>Pustaka<br>Nusantara</h1></div>
- <div class="c" style="top:700px"><button class="btn" id="bm">Mulai</button>&nbsp;&nbsp;&nbsp;<button class="btn" id="bk">Koleksi</button></div>
- <div class="c" style="top:930px;font-size:30px;opacity:.7">Toko buku mungil bernuansa kayu perpustakaan Indonesia</div>
+#bx{width:1200px;background:#f3e6c8;border:12px solid var(--w1);border-radius:28px;padding:44px 60px;text-align:center}
+#prologBox{width:1100px;background:#fffdf0;border:10px solid #5a3820;border-radius:28px;padding:40px;box-shadow:0 12px 0 #3a2210;text-align:left;margin:0 auto}
+#avaGrid{display:flex;gap:30px;flex-wrap:wrap;justify-content:center;max-width:900px;margin:0 auto}
+.<div class="scr" id="avaScreen">
+<div class="c" style="top:100px;font-size:70px;font-weight:700;color:#5a3820">Pilih Avatar</div>
+<div class="c" style="top:340px"><div id="avaGrid">
+<img src="avatar1.png" class="avatarPick sel" data-i="0">
+<img src="avatar2.png" class="avatarPick" data-i="1">
+<img src="avatar3.png" class="avatarPick" data-i="2">
+<img src="avatar4.png" class="avatarPick" data-i="3">
+<img src="avatar5.png" class="avatarPick" data-i="4">
+</div></div>
+<div class="c" style="top:880px"><button class="btn" id="avaOk">Mulai Jualan</button></div>
 </div>
 <div class="scr" id="shop">
- <div id="hud"><span class="chip">💰 Rp <b class="um">0</b></span><span class="chip">📅 Hari <b class="hr">1</b></span><span class="chip">👥 <b id="sv"></b></span></div>
- <button class="btn sm" id="mn">Menu</button>
- <div id="hint">Tap pelanggan, lalu tap buku. Tap buku saja untuk membaca ceritanya.</div>
- <div id="bo"><svg viewBox="0 0 800 480"><rect x="40" y="60" width="720" height="430" fill="#4a8a5c"/><g stroke="#3a7048" stroke-width="4"><path d="M120 60v430M200 60v430M280 60v430M360 60v430M440 60v430M520 60v430M600 60v430M680 60v430"/></g><path d="M10 70L60 0H740L790 70z" fill="#3b3b48"/><rect x="30" y="62" width="740" height="14" rx="4" fill="#2f5e3d"/><rect x="300" y="14" width="200" height="46" rx="8" fill="#f3e6c8" stroke="#28503a" stroke-width="5"/><text x="400" y="50" text-anchor="middle" font-size="34" font-weight="700" fill="#28503a" font-family="Georgia,serif">BUKU</text><path d="M60 88Q400 148 740 88" stroke="#333" stroke-width="3" fill="none"/><circle cx="100" cy="97" r="9" fill="#f2c94c"/><circle cx="180" cy="108" r="9" fill="#e0604a"/><circle cx="260" cy="115" r="9" fill="#6fcf97"/><circle cx="340" cy="119" r="9" fill="#56a8e8"/><circle cx="420" cy="119" r="9" fill="#f2c94c"/><circle cx="500" cy="115" r="9" fill="#e0604a"/><circle cx="580" cy="108" r="9" fill="#6fcf97"/><circle cx="660" cy="97" r="9" fill="#56a8e8"/><rect x="80" y="160" width="170" height="170" fill="#9ad0e6" stroke="#f3e6c8" stroke-width="10"/><rect x="550" y="160" width="170" height="170" fill="#9ad0e6" stroke="#f3e6c8" stroke-width="10"/><path d="M165 160v170M80 245h170M635 160v170M550 245h170" stroke="#f3e6c8" stroke-width="6"/><rect x="70" y="330" width="190" height="40" fill="#8b5a2b"/><rect x="540" y="330" width="190" height="40" fill="#8b5a2b"/><g fill="#e8618c"><circle cx="100" cy="326" r="12"/><circle cx="150" cy="320" r="12"/><circle cx="200" cy="326" r="12"/><circle cx="240" cy="320" r="12"/></g><g fill="#f2c94c"><circle cx="570" cy="326" r="12"/><circle cx="620" cy="320" r="12"/><circle cx="670" cy="326" r="12"/><circle cx="710" cy="320" r="12"/></g></svg></div>
- <div id="cu"><div id="bub"></div><div class="hd">🙂</div></div>
- <div id="rack"></div>
+<div id="hud"><span class="chip">Rp <b class="um">0</b></span><span class="chip">Hari <b class="hr">1</b></span><span class="chip"><b id="sv"></b></span><img id="myAva" src="avatar1.png" style="width:70px;height:70px;border-radius:50%;border:4px solid #3a2210;margin-left:auto"></div>
+<button class="btn sm" id="mn">Menu</button>
+<div id="hint">Tap pelanggan lalu tap buku</div>
+<div id="bo"><svg viewBox="0 0 800 480"><rect x="40" y="60" width="720" height="430" fill="#4a8a5c"/><rect x="300" y="14" width="200" height="46" rx="8" fill="#f3e6c8" stroke="#28503a" stroke-width="5"/><text x="400" y="50" text-anchor="middle" font-size="34" font-weight="700" fill="#28503a">BUKU</text></svg></div>
+<div id="cu"><div id="bub"></div><div class="hd">🙂</div></div>
+<div id="rack"></div>
 </div>
 <div class="scr" id="peta">
- <div id="hud"><span class="chip">💰 Rp <b class="um">0</b></span><span class="chip">📅 Hari <b class="hr">1</b></span></div>
- <div class="c" style="top:110px;font-size:70px;font-weight:700;color:var(--w1)">Pilih Kota</div>
- <div class="c" id="pl" style="top:290px"></div>
- <div class="c" style="top:930px"><button class="btn" id="pb2">Kembali</button></div>
+<div id="hud"><span class="chip">Rp <b class="um">0</b></span><span class="chip">Hari <b class="hr">1</b></span></div>
+<div class="c" style="top:110px;font-size:70px;font-weight:700;color:#5a3820">Pilih Kota</div>
+<div class="c" id="pl" style="top:290px"></div>
+<div class="c" style="top:930px"><button class="btn" id="pb2">Kembali</button></div>
 </div>
-<div class="scr" id="kol">
- <div id="hud"><span class="chip">💰 Rp <b class="um">0</b></span><span class="chip">📅 Hari <b class="hr">1</b></span></div>
- <div class="c" style="top:110px;font-size:70px;font-weight:700;color:var(--w1)">📖 Buku Stamp</div>
- <div id="kl"></div>
- <div class="c" style="top:930px"><button class="btn" id="up">Upgrade</button>&nbsp;&nbsp;&nbsp;<button class="btn" id="kb">Kembali</button></div>
-</div>
-<div id="pop"><div id="bx"><h2 id="pt"></h2><div id="pb"></div><button class="btn" id="pc" style="margin-top:20px">Tutup</button></div></div>
+<div id="pop"><div id="bx"><h2 id="pt"></h2><div id="pb"></div><button class="btn" id="pc">Tutup</button></div></div>
 </div>
 <script>
 const $=i=>document.getElementById(i),st=$('st');
-const B=[
-{t:'Malin Kundang',g:'Legenda',c:'#b5483a',s:['Malin Kundang adalah anak nelayan miskin di pesisir Sumatra Barat. Ia merantau naik kapal dagang dan bekerja keras hingga menjadi saudagar kaya dengan istri yang cantik.','Saat pulang, ia malu mengakui ibunya yang renta. Sang ibu terluka dan berdoa. Badai datang, kapal Malin hancur, dan ia berubah menjadi batu. Cerita ini mengajarkan bakti kepada orang tua.']},
-{t:'Timun Mas',g:'Dongeng',c:'#4a8c5c',s:['Mbok Sirni, seorang janda, diberi anak bernama Timun Mas oleh raksasa dengan janji akan diserahkan saat dewasa. Ketika waktunya tiba, Mbok Sirni menyuruh Timun Mas kabur sambil membawa bungkusan sakti.','Timun Mas melempar biji timun, jarum, garam, dan terasi. Semuanya berubah menjadi hutan, duri, lautan, dan lumpur mendidih yang menenggelamkan sang raksasa. Timun Mas selamat.']},
-{t:'Bawang Merah Bawang Putih',g:'Dongeng',c:'#c9983a',s:['Bawang Putih hidup bersama ibu tiri dan Bawang Merah yang selalu memperlakukannya dengan kasar. Suatu hari baju ibu tiri hanyut di sungai, dan Bawang Putih disuruh mencarinya.','Ia bertemu nenek baik hati dan diberi labu berisi harta. Bawang Merah yang serakah mengambil labu besar, tetapi isinya ular dan binatang berbahaya. Kebaikan hati selalu berbuah manis.']},
-{t:'Sangkuriang',g:'Legenda',c:'#5b6fb0',s:['Sangkuriang tumbuh tanpa tahu bahwa wanita cantik yang ia cintai, Dayang Sumbi, adalah ibunya sendiri. Ketika Dayang Sumbi tahu, ia mengajukan syarat mustahil: sebuah perahu dan danau dalam semalam.','Sangkuriang hampir berhasil dengan bantuan makhluk gaib. Dayang Sumbi menggelar kain tenun hingga fajar palsu terbit. Perahu yang ditendang Sangkuriang menjadi Gunung Tangkuban Parahu.']},
-{t:'Gajah Mada',g:'Sejarah',c:'#8a4f9e',s:['Gajah Mada adalah mahapatih Kerajaan Majapahit pada abad ke-14. Ia terkenal dengan Sumpah Palapa, yaitu janji tidak akan menikmati palapa sebelum Nusantara bersatu.','Di bawah Raja Hayam Wuruk, Majapahit mencapai puncak kejayaan dan wilayahnya meliputi banyak pulau. Kisahnya menjadi simbol tekad persatuan bangsa.']},
-{t:'Sumpah Pemuda',g:'Sejarah',c:'#2f8a9a',s:['Pada 28 Oktober 1928, pemuda dari berbagai daerah berkumpul dalam Kongres Pemuda II di Batavia. Mereka datang dengan bahasa, suku, dan adat yang berbeda-beda.','Mereka mengikrarkan satu tanah air, satu bangsa, dan satu bahasa persatuan: Indonesia. Ikrar ini menjadi tonggak penting menuju kemerdekaan.']},
-{t:'Proklamator dari Blitar',g:'Sejarah',c:'#a33a3a',k:'Blitar',s:['Ir. Soekarno, presiden pertama Indonesia, menghabiskan masa kecilnya di Blitar, Jawa Timur. Di sana ia tumbuh dekat dengan rakyat kecil dan mulai memimpikan Indonesia merdeka.','Setelah wafat, Bung Karno dimakamkan di Blitar. Hingga kini makamnya ramai diziarahi orang dari berbagai penjuru negeri.']},
-{t:'Roro Jonggrang',g:'Legenda',c:'#d0702a',k:'Yogyakarta',s:['Bandung Bondowoso mencintai Roro Jonggrang, putri Prambanan yang cantik. Roro Jonggrang mengajukan syarat: seribu candi harus berdiri dalam satu malam.','Dengan bantuan makhluk halus, hampir seribu candi selesai. Roro Jonggrang membangunkan para gadis menumbuk padi agar fajar tampak datang. Bondowoso murka dan mengutuknya menjadi arca, candi yang ke-seribu.']},
-{t:'Putri Mandalika',g:'Legenda',c:'#1f8f8a',k:'Lombok',s:['Putri Mandalika adalah putri raja yang cantik di Lombok. Banyak pangeran memperebutkannya hingga muncul ancaman perang antar kerajaan.','Demi menjaga perdamaian, ia terjun ke laut di pantai selatan dan menjelma menjadi cacing laut warna-warni bernama nyale. Setiap tahun masyarakat Lombok merayakannya dalam tradisi Bau Nyale.']}];
-const K=[{n:'Blitar',e:'🏛️',goal:5,bg:'#bfe2f5',item:'Cokelat Blitar 🍫'},{n:'Yogyakarta',e:'🏯',goal:7,bg:'#f7d9a0',item:'Batik Parang 🧵'},{n:'Lombok',e:'🏝️',goal:9,bg:'#9fe3e6',item:'Tenun Sukarara 🧣'}];
+const B=[{t:'Malin',g:'Legenda',c:'#b5483a',s:['Jadi batu']},{t:'Timun Mas',g:'Dongeng',c:'#4a8c5c',s:['Kabur']},{t:'Bawang Putih',g:'Dongeng',c:'#c9983a',s:['Labu']},{t:'Sangkuriang',g:'Legenda',c:'#5b6fb0',s:['Gunung']},{t:'Gajah Mada',g:'Sejarah',c:'#8a4f9e',s:['Palapa']},{t:'Soekarno Blitar',g:'Sejarah',c:'#a33a3a',k:'Blitar',s:['Blitar']},{t:'Roro',g:'Legenda',c:'#d0702a',k:'Yogyakarta',s:['1000 candi']},{t:'Mandalika',g:'Legenda',c:'#1f8f8a',k:'Lombok',s:['Nyale']}];
+const K=[{n:'Blitar',goal:5,bg:'#bfe2f5'},{n:'Yogyakarta',goal:7,bg:'#f7d9a0'},{n:'Lombok',goal:9,bg:'#9fe3e6'}];
 let city=0,ok=0,run=0,pend=null;
-const SV=b=>'<svg viewBox="0 0 160 110" width="150" height="104">'+b+'</svg>';
-K[0].e=SV('<circle cx="128" cy="24" r="13" fill="#f2c94c"/><path d="M14 100h132l-10-16H24zM34 84h92l-8-16H42zM52 68h56l-6-16H58zM68 52h24l-4-16H72z" fill="#6b5a4a"/>');
-K[1].e=SV('<circle cx="24" cy="22" r="12" fill="#f2c94c"/><g fill="#7a5a3a"><path d="M16 100V56l12-36 12 36v44zM64 100V44l16-40 16 40v56zM120 100V56l12-36 12 36v44z"/></g><path d="M0 100h160v10H0z" fill="#5a4026"/>');
-K[2].e=SV('<circle cx="28" cy="24" r="12" fill="#f2c94c"/><path d="M0 100L56 34l22 18 28-40 54 88z" fill="#5a7a6a"/><path d="M0 90q20-10 40 0t40 0 40 0 40 0v20H0z" fill="#2a8fb0"/>');
-function stamp(){const k=K[city];if(S.done.includes(k.n))return;const n=S.st[k.n]=(S.st[k.n]||0)+1;$('hint').textContent=$('hint').textContent.replace(/Stamp \d+/,'Stamp '+n);if(n>=k.goal){S.done.push(k.n);S.items.push(k.item);pend=k}}
-function av(){
- const [s,sh,pt,ty,hc]=[['#c58a5a','#c04a3a','#2c3e63','hijab','#5a3a7a'],['#e0b48a','#3f78b5','#4a3a2a','peci','#111'],['#a8704a','#d7a63a','#5a2a2a','bun','#2a1a10'],['#d9a577','#4a8c5c','#2f2f3f','tua','#e6e6e6'],['#b07c55','#8a4f9e','#3a3a55','pendek','#1a1208']][Math.floor(Math.random()*5)];
- const bk=ty=='hijab'?`<path d="M40 62a40 44 0 0 1 80 0v50q-40 26-80 0z" fill="${hc}"/>`:'';
- const fr={hijab:'',peci:`<rect x="52" y="22" width="56" height="18" rx="6" fill="#111"/>`,bun:`<circle cx="80" cy="22" r="13" fill="${hc}"/><path d="M48 54a32 32 0 0 1 64 0q-32-18-64 0z" fill="${hc}"/>`,tua:`<path d="M48 56a32 32 0 0 1 64 0q-32-14-64 0z" fill="${hc}"/><g fill="none" stroke="#333" stroke-width="2.5"><circle cx="68" cy="60" r="9"/><circle cx="92" cy="60" r="9"/><path d="M77 60h6"/></g>`,pendek:`<path d="M48 54a32 32 0 0 1 64 0q-32-18-64 0z" fill="${hc}"/>`}[ty];
- return `<svg viewBox="0 0 160 260" width="160" height="260">${bk}<ellipse cx="80" cy="252" rx="50" ry="8" fill="rgba(0,0,0,.22)"/><rect x="58" y="170" width="18" height="76" rx="6" fill="${pt}"/><rect x="84" y="170" width="18" height="76" rx="6" fill="${pt}"/><ellipse cx="66" cy="248" rx="14" ry="6" fill="#2a1a10"/><ellipse cx="94" cy="248" rx="14" ry="6" fill="#2a1a10"/><rect x="30" y="100" width="18" height="66" rx="9" fill="${sh}"/><rect x="112" y="100" width="18" height="66" rx="9" fill="${sh}"/><circle cx="39" cy="170" r="9" fill="${s}"/><circle cx="121" cy="170" r="9" fill="${s}"/><rect x="44" y="90" width="72" height="92" rx="24" fill="${sh}"/><g fill="rgba(255,255,255,.3)"><path d="M62 110l6 8-6 8-6-8zM94 106l6 8-6 8-6-8zM78 140l6 8-6 8-6-8zM58 158l6 8-6 8-6-8zM100 156l6 8-6 8-6-8z"/></g><rect x="72" y="80" width="16" height="18" fill="${s}"/><circle cx="80" cy="58" r="30" fill="${s}"/><circle cx="68" cy="60" r="3.5" fill="#2a1a10"/><circle cx="92" cy="60" r="3.5" fill="#2a1a10"/><path d="M70 74q10 9 20 0" stroke="#7a3a2a" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="60" cy="70" r="5" fill="rgba(220,90,90,.3)"/><circle cx="100" cy="70" r="5" fill="rgba(220,90,90,.3)"/>${fr}</svg>`}
+function stamp(){const k=K[city];if(S.done.includes(k.n))return;const n=S.st[k.n]=(S.st[k.n]||0)+1;if(n>=k.goal){S.done.push(k.n);pend=k}}
 const T=(f,m)=>{const r=run;return setTimeout(()=>{if(r==run)f()},m)};
-const sv=()=>$('sv').textContent='✅'+ok+' · '+served+'/5';
-let S={uang:0,hari:1,read:[],sold:[],up:0,done:[],items:[],st:{}};
+let S={uang:0,hari:1,read:[],sold:[],up:0,done:[],st:{},ava:0};
 try{Object.assign(S,JSON.parse(localStorage.getItem('pustaka')||'{}'))}catch(e){}
-const save=()=>{try{localStorage.setItem('pustaka',JSON.stringify(S))}catch(e){}};
+const save=()=>{localStorage.setItem('pustaka',JSON.stringify(S))};
 const rp=n=>n.toLocaleString('id-ID');
-function hud(){document.querySelectorAll('.um').forEach(e=>e.textContent=rp(S.uang));document.querySelectorAll('.hr').forEach(e=>e.textContent=S.hari)}
+function hud(){document.querySelectorAll('.um').forEach(e=>e.textContent=rp(S.uang));document.querySelectorAll('.hr').forEach(e=>e.textContent=S.hari);const AV=['avatar1.png','avatar2.png','avatar3.png','avatar4.png','avatar5.png'];const a=$('myAva');if(a)a.src=AV[S.ava]||AV[0]}
 function fit(){st.style.transform='translate(-50%,-50%) scale('+Math.min(innerWidth/1920,innerHeight/1080)+')'}
 addEventListener('resize',fit);fit();
-function go(n){document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.id==n));hud()}
+function go(n){document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.id==n));hud()}avatarPick{width:180px;height:180px;border-radius:50%;border:8px solid #3a2210;cursor:pointer;object-fit:cover;background:#fff}
+.avatarPick.sel{outline:10px solid #e0b04a;transform:scale(1.1)}
+#bo{position:absolute;left:560px;top:200px;width:800px;height:480px}
+.city{width:480px;min-height:380px;font-size:52px;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;margin:0 20px}
+</style></head><body>
+<div id="st">
+<div class="scr on" id="menu">
+<div id="hud"><span class="chip">Rp <b class="um">0</b></span><span class="chip">Hari <b class="hr">1</b></span></div>
+<div class="c" style="top:230px"><h1>Pustaka<br>Nusantara</h1></div>
+<div class="c" style="top:700px"><button class="btn" id="bm">Mulai</button></div>
+</div>
+<div class="scr" id="prolog"><div class="c" style="top:150px"><div id="prologBox"><div id="pE" style="font-size:100px">📦</div><h2 id="pT" style="font-size:64px;color:#5a3820">Gudang Nenek</h2><p id="pD" style="font-size:38px">Kamu pulang ke Blitar.</p><button class="btn" id="pNext" style="margin-top:24px;width:100%">Lanjut</button></div></div></div>
 let cb=null;
 function pop(t,ps,btn,f){$('pt').textContent=t;$('pb').innerHTML=ps.map(p=>'<p>'+p+'</p>').join('');$('pc').textContent=btn||'Tutup';cb=f||null;$('pop').classList.add('on')}
 $('pc').onclick=()=>{$('pop').classList.remove('on');if(cb){const f=cb;cb=null;f()}};
 let shelf=[],cur=null,served=0,tm=null;
-function startDay(){
- run++;clearTimeout(tm);$('shop').style.background='linear-gradient('+K[city].bg+' 0 55%,#e8d3a0 55%)';cur=null;ok=0;$('cu').style.display='none';$('hint').textContent='📍 '+K[city].n+' · Stamp '+(S.st[K[city].n]||0)+'/'+K[city].goal+' · Tap pelanggan, lalu tap buku.';
- shelf=B.filter(b=>!b.k||S.done.includes(b.k)).sort(()=>Math.random()-.5).slice(0,3+Math.floor(Math.random()*3));served=0;sv();
- const r=$('rack');r.innerHTML='';
- shelf.forEach(b=>{const d=document.createElement('div');d.className='bk';d.style.backgroundColor=b.c;d.innerHTML=b.t+'<i>'+b.g+'</i>';d.onclick=()=>tapBook(b,d);r.appendChild(d)});
- tm=T(nextCust,800);
-}
-function nextCust(){
- const el=$('cu'),want=shelf[Math.floor(Math.random()*shelf.length)].g;
- el.style.transition='none';el.style.left='-300px';el.style.display='block';el.classList.remove('sel');
- el.querySelector('.hd').innerHTML=av();
- $('bub').textContent='Cari buku '+want+'!';
- cur={want,tries:0,ready:false,sel:false};
- void el.offsetWidth;el.style.transition='left 2.6s linear';el.style.left='820px';
- T(()=>{if(cur)cur.ready=true},2600);
-}
-$('cu').onclick=()=>{if(!cur||!cur.ready)return;cur.sel=!cur.sel;$('cu').classList.toggle('sel',cur.sel);
- document.querySelectorAll('.bk').forEach(b=>b.classList.toggle('hl',cur.sel))};
-function leave(){const c=$('cu');cur=null;c.classList.remove('sel');document.querySelectorAll('.bk').forEach(b=>b.classList.remove('hl'));
- c.style.transition='left 2s linear';c.style.left='2000px';served++;sv();save();hud();
- tm=T(()=>served>=5?endDay():nextCust(),2000)}
-function tapBook(b){
- if(cur&&cur.sel&&cur.ready){
-  if(b.g==cur.want){const p=15000+S.up*5000;S.uang+=p;if(!S.sold.includes(b.t))S.sold.push(b.t);
-   $('bub').textContent='Terima kasih! +Rp '+rp(p);cur.ready=false;ok++;stamp();hud();save();T(leave,1200)}
-  else{cur.tries++;$('bub').textContent='Hmm, bukan '+cur.want+'...';
-   if(cur.tries>=2){cur.ready=false;$('bub').textContent='Aku cari di toko lain.';T(leave,1200)}}
- }else{
-  if(!S.read.includes(b.t)){S.read.push(b.t);save()}
-  pop(b.t,b.s);
- }
-}
-function endDay(){
- const k=K[city],b=B.find(x=>x.k==k.n);S.hari++;save();
- if(pend){pend=null;pop('Stamp '+k.n+' penuh! 🎉',['Hadiah: buku baru <b>'+b.t+'</b> dan oleh-oleh <b>'+k.item+'</b>.',(city<2?'Kota berikutnya terbuka. ':'')+'Ini hadiah, bukan ujian. Main santai saja.'],'Ke Peta',peta)}
- else pop('Hari selesai',['Pelanggan puas hari ini: '+ok+'/5. Stamp '+k.n+': '+(S.st[k.n]||0)+'/'+k.goal+'.','Tidak ada kalah menang, main santai saja.'],'Ke Peta',peta)
- $('cu').style.display='none';
-}
-function kol(){
- $('kl').innerHTML='<div class="pg">'+K.map(k=>{const n=S.st[k.n]||0;return '<div class="pol '+(n?'':'dim')+'"><div class="ph" style="background:'+k.bg+'">'+k.e+'</div><b>'+k.n+'</b><span class="bd">'+n+'/'+k.goal+'</span>'+(S.done.includes(k.n)?'<span class="ck">✓</span>':'')+'</div>'}).join('')+'</div>'+
- '<div class="row"><span>📖 Buku dibaca</span><span>'+S.read.length+' / '+B.length+'</span></div><div class="row"><span>💰 Buku terjual</span><span>'+S.sold.length+' / '+B.length+'</span></div><div class="row"><span>🎁 Oleh-oleh</span><span>'+(S.items.join(', ')||'-')+'</span></div>';
- const c=60000*(S.up+1);$('up').textContent='Upgrade harga Rp '+rp(c);go('kol')}
-$('up').onclick=()=>{const c=60000*(S.up+1);if(S.uang>=c){S.uang-=c;S.up++;save();kol()}else pop('Uang belum cukup',['Butuh Rp '+rp(c)+' untuk upgrade. Layani lebih banyak pelanggan dulu!'])};
-function peta(){
- $('pl').innerHTML=K.map((k,i)=>{const o=i==0||S.done.includes(K[i-1].n),d=S.done.includes(k.n);
- return '<button class="btn city" data-i="'+i+'" '+(o?'':'disabled')+'><span>'+k.e+'</span>'+k.n+'<small>'+(d?'✅ Selesai':o?'Stamp '+(S.st[k.n]||0)+'/'+k.goal:'🔒 Terkunci')+'</small></button>'}).join('');
- $('pl').querySelectorAll('button').forEach(b=>b.onclick=()=>{city=+b.dataset.i;go('shop');startDay()});go('peta')}
-$('bm').onclick=peta;$('pb2').onclick=()=>go('menu');
-$('bk').onclick=kol;$('kb').onclick=()=>go('menu');$('mn').onclick=()=>{run++;clearTimeout(tm);cur=null;go('menu')};
+const PROLOG=[{e:'📦',t:'Gudang Nenek',d:'Kamu pulang ke Blitar. Di gudang ada 3 kardus: BUKU DONGENG - JANGAN DIBUANG.'},{e:'👵',t:'Pesan Nenek',d:'Dulu anak Blitar rebutan baca Sangkuriang. Sekarang sepi main HP terus.'},{e:'🪵',t:'Gerobak Kayu',d:'Ada gerobak kayu bekas jamu nenek + stempel PUSTAKA NUSANTARA.'},{e:'🚚',t:'Ide Keliling',d:'Yaudah jualan keliling aja! Mulai dari Blitar!'}];
+let pStep=0;
+function showProlog(){const d=PROLOG[pStep];$('pE').textContent=d.e;$('pT').textContent=d.t;$('pD').textContent=d.d;$('pNext').textContent=pStep===3?'Pilih Avatar ->':'Lanjut ->';go('prolog')}
+$('pNext').onclick=()=>{pStep++;if(pStep<4)showProlog();else go('avaScreen')};
+document.querySelectorAll('.avatarPick').forEach(a=>a.onclick=()=>{document.querySelectorAll('.avatarPick').forEach(x=>x.classList.remove('sel'));a.classList.add('sel');S.ava=parseInt(a.dataset.i);save();hud()});
+$('avaOk').onclick=()=>{peta()};
+function startDay(){run++;clearTimeout(tm);$('shop').style.background=K[city].bg;cur=null;ok=0;$('cu').style.display='none';$('hint').textContent=K[city].n+' Stamp '+(S.st[K[city].n]||0)+'/'+K[city].goal;shelf=B.filter(b=>!b.k||S.done.includes(b.k)).sort(()=>Math.random()-.5).slice(0,4);served=0;const r=$('rack');r.innerHTML='';shelf.forEach(b=>{const d=document.createElement('div');d.className='bk';d.style.background=b.c;d.innerHTML=b.t;d.onclick=()=>tap(b);r.appendChild(d)});tm=T(nextCust,800)}
+function nextCust(){const el=$('cu'),want=shelf[Math.floor(Math.random()*shelf.length)].g;el.style.transition='none';el.style.left='-300px';el.style.display='block';$('bub').textContent='Cari '+want;cur={want,ready:false,sel:false};void el.offsetWidth;el.style.transition='left 2.6s linear';el.style.left='820px';T(()=>{if(cur)cur.ready=true},2600)}
+$('cu').onclick=()=>{if(!cur||!cur.ready)return;cur.sel=!cur.sel;$('cu').style.outline=cur.sel?'8px solid #e0b04a':''};
+function leave(){cur=null;$('cu').style.left='2000px';served++;if(served>=5){S.hari++;save();pop('Hari selesai',['Puas '+ok+'/5'],'Ke Peta',peta)}else T(nextCust,1200)}
+function tap(b){if(cur&&cur.sel&&cur.ready){if(b.g==cur.want){S.uang+=15000;ok++;stamp();hud();save();$('bub').textContent='Makasih!';T(leave,800)}else{$('bub').textContent='Bukan itu'}}else{pop(b.t,b.s)}}
+function peta(){$('pl').innerHTML=K.map((k,i)=>{const o=i==0||S.done.includes(K[i-1].n);return '<button class="btn city" data-i="'+i+'" '+(o?'':'disabled')+'>'+k.n+'<small>Stamp '+(S.st[k.n]||0)+'/'+k.goal+'</small></button>'}).join('');$('pl').querySelectorAll('button').forEach(b=>b.onclick=()=>{city=+b.dataset.i;go('shop');startDay()});go('peta')}
+$('bm').onclick=()=>{pStep=0;showProlog()};$('pb2').onclick=()=>go('menu');$('mn').onclick=()=>{run++;go('menu')};
 hud();
 </script></body></html>
