@@ -11,7 +11,10 @@
 body{margin:0;font-family:'Fredoka',sans-serif;background:#D9B99B;min-height:100vh;display:flex;flex-direction:column}
 .topbar{background:var(--wood-dark);color:#FFE4B5;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;font-weight:700;position:sticky;top:0;z-index:10;box-shadow:0 4px 0 rgba(0,0,0,0.2)}
 .pill{background:var(--cream);color:var(--wood-dark);padding:5px 12px;border-radius:20px;border:3px solid var(--wood);font-size:13px}
-.scene{position:relative;height:40vh;min-height:280px;background:#E9C8A0 url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900') center/cover;overflow:hidden;border-bottom:6px solid var(--wood-dark)}
+..scene{position:relative;height:42vh;min-height:320px;background:linear-gradient(180deg, #E9C9A0 0%, #D9B99B 50%, #C49A6C 100%);overflow:hidden;border-bottom:6px solid var(--wood-dark)}
+.scene::before{content:'📚📚📚🪴📚📚🪴📚📚📚';position:absolute;top:20px;left:0;right:0;font-size:40px;letter-spacing:8px;opacity:0.9;white-space:nowrap;animation:drift 20s linear infinite}
+.scene::after{content:'🪴🌿🪟☀️🌴🏡🪴🌿';position:absolute;bottom:60px;left:10px;right:10px;font-size:32px;display:flex;justify-content:space-around}
+@keyframes drift{0%{transform:translateX(-10%)}100%{transform:translateX(10%)}}
 .shop-overlay{position:absolute;inset:0;display:flex;align-items:end;justify-content:center;padding:20px;z-index:2;background:linear-gradient(0deg, rgba(93,58,26,0.25), transparent 70%)}
 .counter{background:var(--cream);border:4px solid var(--wood-dark);border-radius:16px 16px 0 0;padding:14px;min-width:280px;max-width:90%;box-shadow:0 -8px 20px rgba(0,0,0,0.2);text-align:center;position:relative}
 .counter::before{content:'Pustaka Nusantara • Blitar';position:absolute;top:-28px;left:50%;transform:translateX(-50%);background:var(--wood-dark);color:#FFE4B5;padding:4px 12px;border-radius:20px;font-size:11px;letter-spacing:1px}
