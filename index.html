@@ -2,141 +2,18 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Pustaka Nusantara - Tiny Bookshop Full</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pustaka Nusantara - Cozy Bookshop</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:'Patrick Hand',cursive;background:#fdf6e3;overflow:hidden}
-#game{width:100vw;height:100vh;max-width:950px;margin:auto;position:relative;background:#fdf6e3;display:flex;flex-direction:column}
-.top{display:flex;justify-content:space-between;padding:10px 16px;background:#8b5a2b;color:#fff2df;font-size:20px;align-items:center}
-.top button{font-size:16px;padding:8px 14px;min-width:auto;min-height:auto}
-#view{flex:1;position:relative;overflow:hidden}
-.screen{position:absolute;inset:0;display:none;flex-direction:column}
-.screen.on{display:flex}
-#custArea{height:46%;background:#fffaf0;border-bottom:8px solid #d1b48c;position:relative}
-.customer{position:absolute;bottom:15px;left:-130px;transition:left 1.2s cubic-bezier(.2,.8,.2,1);text-align:center}
-.customer.in{left:42%}
-.bubble{position:absolute;top:-62px;left:50%;transform:translateX(-50%);background:#fff;border:3px solid #4a2c0a;border-radius:18px;padding:6px 12px;font-size:17px}
-.shelves{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding:14px}
-.book{width:92px;height:128px;border:3px solid #4a2c0a;border-radius:8px;padding:8px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;box-shadow:0 5px 0 #4a2c0a;cursor:pointer}
-.book:active{transform:translateY(5px);box-shadow:0 0 0}
-.btn{font-family:inherit;font-size:20px;padding:14px 20px;border:3px solid #4a2c0a;border-radius:18px;background:#ffb347;box-shadow:0 5px 0 #4a2c0a;min-height:62px}
-.btn:active{transform:translateY(5px);box-shadow:0 0 0}
-#actions{display:flex;gap:10px;padding:10px;justify-content:center;flex-wrap:wrap}
-#startScreen{align-items:center;justify-content:center;text-align:center;background:radial-gradient(#fff8e7,#e8d5b5);z-index:5}
-h1{font-size:52px;line-height:.9}
-.grid{padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;overflow:auto}
-.card{border:3px solid #4a2c0a;border-radius:12px;padding:10px;background:#fff;text-align:center}
-.card.lock{opacity:.35}
-.progress{height:10px;background:#e0c9a6;border-radius:10px;overflow:hidden;margin:6px 0}
-.fill{height:100%;background:#2ecc71;width:0%}
-</style>
-</head>
-<body>
-<div id="game">
-<div class="top"><span>🗓️ Hari <b id="day">1</b>/7</span><span>💰 Rp <b id="money">50</b>k</span><button class="btn" style="padding:6px 12px;background:#fff" onclick="openKoleksi()">📚 Koleksi</button></div>
-<div id="view">
-  <div id="shopScreen" class="screen on" style="display:flex">
-    <div id="custArea"><div id="cust" class="customer"></div></div>
-    <div style="flex:1;display:flex;flex-direction:column">
-      <div style="text-align:center;padding:8px 0;font-size:18px">Tap buku yang genrenya cocok dengan permintaan pelanggan!</div>
-      <div id="shelves" class="shelves"></div>
-      <div id="actions">
-        <button class="btn" onclick="nextCustomer()">Pelanggan Baru</button>
-        <button class="btn" style="background:#a8e6a3" onclick="restock()">Restock -10k</button>
-        <button class="btn" style="background:#ffd1dc" onclick="closeDay()">Tutup Toko 🌙</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="koleksiScreen" class="screen" style="background:#fdf6e3">
-    <div style="padding:14px;display:flex;justify-content:space-between;align-items:center"><h2>Koleksi Nusantara</h2><button class="btn" onclick="closeKoleksi()">Kembali</button></div>
-    <div id="koleksiGrid" class="grid"></div>
-  </div>
-
-  <div id="startScreen" class="screen on" style="z-index:20">
-    <h1>Pustaka<br>Nusantara</h1>
-    <p style="font-size:20px;margin:14px 20px">Cozy tiny bookshop di Blitar.<br>Layani pembaca, kumpulkan cerita rakyat!</p>
-    <div style="background:#fff;border:3px solid #4a2c0a;border-radius:12px;padding:12px;margin:12px;font-size:16px">Tip iPad: Semua tap besar, no right-click.<br>Progres auto-save!</div>
-    <button class="btn" style="margin-top:10px;font-size:26px" onclick="startGame()">BUKA TOKO HARI 1</button>
-    <button class="btn" style="background:#fff;margin-top:8px" onclick="resetSave()">Reset Save</button>
-  </div>
-
-  <div id="dayEnd" class="screen" style="align-items:center;justify-content:center;text-align:center;background:rgba(253,246,227,.97);z-index:15">
-    <h2 id="dayEndTitle">Hari 1 Selesai!</h2>
-    <p id="dayEndStats" style="font-size:20px;margin:12px"></p>
-    <button class="btn" onclick="nextDay()">Lanjut Hari Berikutnya ☀️</button>
-    <button class="btn" style="background:#fff;margin-top:10px" onclick="openKoleksi()">Lihat Koleksi</button>
-  </div>
-</div>
-</div>
-
-<script>
-const allBooks=[
-{j:"Malin Kundang",g:"Legenda",w:"#e74c3c",c:"Anak durhaka jadi batu di pantai Air Manis."},
-{j:"Timun Mas",g:"Dongeng",w:"#2ecc71",c:"Gadis pemberani lawan Buto Ijo dengan terasi ajaib."},
-{j:"Bawang Putih Bwg Merah",g:"Dongeng",w:"#9b59b6",c:"Kebaikan hati dikalahkan keirian."},
-{j:"Sangkuriang",g:"Legenda",w:"#1abc9c",c:"Cinta terlarang jadi Gunung Tangkuban Perahu."},
-{j:"Majapahit",g:"Sejarah",w:"#3498db",c:"Kejayaan Nusantara dari Gajah Mada."},
-{j:"Ken Arok Ken Dedes",g:"Sejarah",w:"#e67e22",c:"Awal Singosari yang penuh intrik."},
-{j:"Lutung Kasarung",g:"Legenda",w:"#f1c40f",c:"Pangeran jadi lutung demi cinta sejati."},
-{j:"Jaka Tarub",g:"Legenda",w:"#34495e",c:"Bidadari turun mandi, selendang hilang."}
-];
-let money=50, day=1, soldToday=0, totalSold=0, inventory=[], current=null, collected={}, unlocked={};
-function save(){localStorage.setItem('pustakaSave',JSON.stringify({money,day,totalSold,collected,unlocked}))}
-function load(){try{let d=JSON.parse(localStorage.getItem('pustakaSave'));if(d){money=d.money;day=d.day;totalSold=d.totalSold||0;collected=d.collected||{};unlocked=d.unlocked||{}}}catch(e){}}
-function rand(a){return a[Math.floor(Math.random()*a.length)]}
-function updateTop(){document.getElementById('money').innerText=money;document.getElementById('day').innerText=day;}
-function renderShelf(){
- let s=document.getElementById('shelves');s.innerHTML='';
- inventory.forEach((b,i)=>{
-  let d=document.createElement('div');d.className='book';d.style.background=b.w;
-  d.innerHTML=`<b style="font-size:13px;line-height:1.05">${b.j}</b><span style="font-size:11px;background:rgba(0,0,0,.35);padding:2px 5px;border-radius:5px">${b.g}</span><small style="font-size:10px">${money>=0?'Tap jual':''}</small>`;
-  d.onclick=()=>sell(i); s.appendChild(d);
- });
-}
-function restock(){
- if(money<10){alert('Uang kurang! Jual dulu.');return}
- money-=10; inventory=[rand(allBooks),rand(allBooks),rand(allBooks)]; save(); updateTop(); renderShelf();
-}
-function newCust(){
- let gens=["Legenda","Dongeng","Sejarah"]; current={g:rand(gens),name:rand(["Kak Rina","Pak Budi","Dek Siti","Mas Joko","Bu Ani"])};
- let el=document.getElementById('cust'); el.className='customer'; void el.offsetWidth;
- el.innerHTML=`<div class="bubble">Mau ${current.g} 🙏</div><div style="font-size:64px">${rand(["🧑‍🌾","👩‍🏫","👨‍🎓","👵","🧒"])}</div><div style="background:#fff;border:2px solid #4a2c0a;border-radius:10px;padding:2px 8px">${current.name}</div>`;
- setTimeout(()=>el.classList.add('in'),50);
-}
-function sell(idx){
- if(!current){alert('Tunggu pelanggan datang!');return}
- let b=inventory[idx];
- if(b.g!==current.g){let el=document.getElementById('shelves').children[idx]; el.style.transform='rotate(8deg)'; setTimeout(()=>el.style.transform='',300); return}
- // success
- money+=18; soldToday++; totalSold++; collected[b.j]=true; unlocked[b.j]=(unlocked[b.j]||0)+1;
- let el=document.getElementById('cust'); el.innerHTML=`<div class="bubble">Wah pas! Makasih! 💛</div><div style="font-size:64px">😍</div>`;
- inventory.splice(idx,1); save(); updateTop(); renderShelf();
- setTimeout(()=>{current=null; el.className='customer'; if(soldToday>=4) closeDay(); else newCust();},900);
-}
-function closeDay(){
- document.getElementById('dayEndTitle').innerText=`Hari ${day} Selesai!`;
- document.getElementById('dayEndStats').innerHTML=`Terjual hari ini: ${soldToday} buku<br>Total terjual: ${totalSold}<br>Uang: Rp ${money}k`;
- document.getElementById('dayEnd').classList.add('on');
-}
-function nextDay(){soldToday=0; day++; if(day>7) day=1; save(); updateTop(); document.getElementById('dayEnd').classList.remove('on'); inventory=[rand(allBooks),rand(allBooks),rand(allBooks)]; renderShelf(); newCust();}
-function nextCustomer(){if(soldToday>=4){closeDay();return} newCust();}
-function openKoleksi(){
- let g=document.getElementById('koleksiGrid'); g.innerHTML='';
- allBooks.forEach(b=>{
-  let have=!!collected[b.j];
-  let d=document.createElement('div'); d.className='card'+(have?'':' lock');
-  d.innerHTML=`<div style="width:100%;height:70px;background:${b.w};border-radius:8px;margin-bottom:6px"></div><b>${b.j}</b><br><small>${b.g}</small><div class="progress"><div class="fill" style="width:${Math.min(100,(unlocked[b.j]||0)*25)}%"></div></div><small>${have?b.c:'??? Belum ditemukan'}</small><br><small>${have?'Terjual '+(unlocked[b.j]||0)+'x':''}</small>`;
-  g.appendChild(d);
- });
- document.getElementById('koleksiScreen').classList.add('on');
-}
-function closeKoleksi(){document.getElementById('koleksiScreen').classList.remove('on');}
-function startGame(){load(); updateTop(); document.getElementById('startScreen').style.display='none'; inventory=[rand(allBooks),rand(allBooks),rand(allBooks)]; renderShelf(); newCust();}
-function resetSave(){localStorage.removeItem('pustakaSave'); location.reload();}
-load(); updateTop();
-</script>
-</body>
-</html>
+:root{--wood:#8B5A2B;--wood-dark:#5D3A1A;--cream:#FFF8E8;--paper:#FEF3D7;--accent:#FF9F45;--green:#4CAF6B;--pink:#FF8FA3}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Fredoka',sans-serif;background:#D9B99B;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:var(--wood-dark);color:#FFE4B5;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;font-weight:700;position:sticky;top:0;z-index:10;box-shadow:0 4px 0 rgba(0,0,0,0.2)}
+.pill{background:var(--cream);color:var(--wood-dark);padding:5px 12px;border-radius:20px;border:3px solid var(--wood);font-size:13px}
+.scene{position:relative;height:40vh;min-height:280px;background:#E9C8A0 url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900') center/cover;overflow:hidden;border-bottom:6px solid var(--wood-dark)}
+.shop-overlay{position:absolute;inset:0;display:flex;align-items:end;justify-content:center;padding:20px;z-index:2;background:linear-gradient(0deg, rgba(93,58,26,0.25), transparent 70%)}
+.counter{background:var(--cream);border:4px solid var(--wood-dark);border-radius:16px 16px 0 0;padding:14px;min-width:280px;max-width:90%;box-shadow:0 -8px 20px rgba(0,0,0,0.2);text-align:center;position:relative}
+.counter::before{content:'Pustaka Nusantara • Blitar';position:absolute;top:-28px;left:50%;transform:translateX(-50%);background:var(--wood-dark);color:#FFE4B5;padding:4px 12px;border-radius:20px;font-size:11px;letter-spacing:1px}
+.customer-bubble{background:white;border:3px solid var(--wood-dark);border-radius:18px 18px 4px 18px;padding:10px 14px;font-family:'Patrick Hand',cursive;font-size:18px;position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:12px;min-width:140px;box-shadow:0 4px 0 var(--wood-dark)}
+.emoji-char{font-size:42px;filter:drop-shadow(
