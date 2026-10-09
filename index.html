@@ -1,67 +1,111 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Pustaka Nusantara</title><style>
-*{box-sizing:border-box}html,body{margin:0;background:#E7D8B9;height:100dvh;display:flex;flex-direction:column;color:#4A2F1E;font-family:Georgia,serif}
-.top{padding:12px 16px;display:flex;gap:8px;flex-shrink:0}.pill{background:#4A2F1E;color:#E7D8B9;padding:5px 14px;border-radius:20px;font:700 11px sans-serif}
-.mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
-.judul{font-size:42px;font-weight:900;line-height:.95}
-.btns{margin-top:18px;display:flex;gap:10px}.btn{background:#5C3A24;color:#E7D8B9;border:2px solid #3D2412;border-bottom:3px solid #3D2412;padding:12px 26px;border-radius:8px;font:700 13px sans-serif;cursor:pointer}
-.tulis{margin-top:26px;font:700 11px sans-serif;color:#5C3A24;animation:nafas 3s ease-in-out infinite}
-@keyframes nafas{0%,100%{opacity:0}50%{opacity:1}}
-.credit{text-align:center;padding:8px;font:600 9.5px sans-serif;color:#8B7355}
-#shop,#col{display:none;flex:1;flex-direction:column;overflow:auto;background:#FFF8EC}
-.shelf{background:#F3E4C0;border-bottom:4px solid #4A2F1E;padding:12px;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.bk{background:#fff;border:2px solid #4A2F1E;border-radius:6px;height:36px;display:flex;align-items:center;justify-content:center;font:700 8px sans-serif}
-.main{flex:1;padding:12px;overflow:auto}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;max-width:800px;margin:0 auto}
-.card{background:#fff;border:2px solid #4A2F1E;border-radius:8px;padding:10px;cursor:pointer;box-shadow:0 3px 0 #4A2F1E}
-.ab{border:2px solid #4A2F1E;border-radius:8px;padding:7px 12px;font:700 11px sans-serif;background:#E7D8B9;cursor:pointer}
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Pustaka Nusantara</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Lora:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100dvh;background:#FDF6E7;display:flex;flex-direction:column;font-family:'Plus Jakarta Sans',sans-serif;color:#3D2412;overflow:hidden}
+.top{padding:12px 14px;display:flex;gap:8px;align-items:center;flex-shrink:0}
+.pill{background:#3D2412;color:#FDEDC3;padding:6px 14px;border-radius:99px;font:800 11px 'Plus Jakarta Sans';letter-spacing:.3px}
+.pill span{color:#FFD37D}
+#back{margin-left:auto}
+.ab{border:2px solid #3D2412;border-radius:10px;padding:7px 12px;font:800 11px sans-serif;background:#FDEDC3;cursor:pointer}
+
+.mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;position:relative;background:radial-gradient(80% 60% at 50% 30%, #FFF8EC 0%, #E7D8B9 100%)}
+.mid::before{content:"📚";font-size:72px;filter:drop-shadow(0 8px 0 #3D2412);margin-bottom:10px}
+.judul{font-family:'Lora',serif;font-size:42px;font-weight:600;font-style:italic;line-height:.9;transform:rotate(-1deg)}
+.judul b{font-family:'Plus Jakarta Sans';font-weight:800;font-style:normal;display:block;font-size:38px;letter-spacing:-1px;transform:rotate(1deg);margin-top:2px}
+.btns{margin-top:22px;display:flex;gap:12px}
+.btn{background:#5C3A24;color:#FDEDC3;border:2.5px solid #3D2412;border-bottom:4px solid #3D2412;padding:12px 28px;border-radius:14px;font:800 13px 'Plus Jakarta Sans';cursor:pointer;transition:.1s}
+.btn:active{transform:translateY(3px);border-bottom-width:2.5px}
+.btn.light{background:#FFD37D;color:#3D2412}
+.tulis{margin-top:22px;font:700 11px sans-serif;color:#8B7355;animation:nafas 3.5s ease-in-out infinite;max-width:240px;line-height:1.4}
+@keyframes nafas{0%,100%{opacity:0;transform:translateY(8px)}50%{opacity:1;transform:translateY(0)}}
+.credit{text-align:center;padding:8px;font:700 9px sans-serif;letter-spacing:1px;text-transform:uppercase;color:#A68B6A;background:#FDEDC3;border-top:1.5px dashed #D7C19A;flex-shrink:0}
+
+#shop{display:none;flex:1;flex-direction:column;background:#FFF8EC;overflow:hidden}
+.rak-wrap{background:linear-gradient(180deg,#D7B88F 0%, #B8956B 100%);padding:10px 12px 14px;border-bottom:4px solid #3D2412;box-shadow:inset 0 -6px 0 rgba(61,36,18,.2);flex-shrink:0}
+.rak{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.buku-rak{height:58px;border-radius:4px 6px 6px 4px;border:2px solid #3D2412;border-left-width:5px;position:relative;display:flex;align-items:flex-end;padding:4px;box-shadow:2px 3px 0 #3D2412;transform:rotate(-1deg)}
+.buku-rak:nth-child(even){transform:rotate(1deg)}
+.buku-rak span{font:800 7.5px 'Plus Jakarta Sans';line-height:.9;color:#3D2412;background:rgba(255,255,255,.7);padding:2px 3px;border-radius:3px}
+
+.counter-area{display:flex;justify-content:center;margin:-16px 12px 0;z-index:2;flex-shrink:0}
+.counter{background:#FFFFFF;border:2.5px solid #3D2412;border-radius:18px;padding:10px 14px;display:flex;gap:10px;align-items:center;box-shadow:0 4px 0 #3D2412;max-width:360px;width:100%}
+.avatar{width:42px;height:42px;border-radius:50%;background:#FFD37D;border:2px solid #3D2412;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.bubble{flex:1}
+.bubble .nama{font:800 11px sans-serif;color:#8B7355}
+.bubble .want{font:800 13px 'Plus Jakarta Sans';margin-top:1px}
+.bubble .want i{font-family:'Lora';font-weight:600}
+
+.main{flex:1;overflow:auto;padding:18px 14px 14px}
+.hint{text-align:center;font:700 10px sans-serif;letter-spacing:1px;text-transform:uppercase;color:#A68B6A;margin:0 0 12px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:500px;margin:0 auto}
+@media(min-width:600px){.grid{grid-template-columns:repeat(3,1fr)}}
+.card{background:#fff;border:2.5px solid #3D2412;border-radius:14px;padding:0;overflow:hidden;cursor:pointer;box-shadow:0 4px 0 #3D2412;transition:.12s}
+.card:active{transform:translateY(4px);box-shadow:none}
+.cover{height:78px;padding:10px;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
+.cover::after{content:"";position:absolute;inset:0;background:radial-gradient(100% 80% at 80% 20%, rgba(255,255,255,.5), transparent)}
+.cover b{font:800 13px 'Plus Jakarta Sans';line-height:1;z-index:1}
+.cover u{font:600 9px sans-serif;text-decoration:none;opacity:.7;z-index:1}
+.meta{padding:8px 10px;display:flex;justify-content:space-between;align-items:center}
+.meta i{font:700 9px sans-serif;background:#FFF2C5;border:1.5px solid #E7C06A;border-radius:99px;padding:3px 8px;font-style:normal}
+.meta s{text-decoration:none;font:800 11px sans-serif;color:#8B7355}
+
+.actions{display:flex;gap:8px;justify-content:center;margin:16px auto 0;flex-wrap:wrap;max-width:500px}
+.actions button{flex:1;min-width:90px}
+
+#col{display:none;flex:1;flex-direction:column;background:#FFF8EC;overflow:auto}
 </style></head><body>
-<div class="top"><div class="pill">Rp <span id="rp">0</span>k</div><div class="pill">Hari <span id="hr">1</span>/7</div><div id="back" style="display:none;margin-left:auto"><button class="ab" onclick="balikHome()">← Home</button></div></div>
+<div class="top"><div class="pill">Rp <span id="rp">0</span>k</div><div class="pill">Hari <span id="hr">1</span>/7</div><div id="back" style="display:none"><button class="ab" onclick="balikHome()">← Home</button></div></div>
 
 <div class="mid" id="home">
-<div class="judul">Pustaka<br>Nusantara</div>
-<div class="btns">
-<button class="btn" onclick="mulaiGame()">Mulai</button>
-<button class="btn" style="background:#8B6A4A" onclick="bukaKoleksi()">Koleksi</button>
-</div>
-<div class="tulis">Toko buku mungil bernuansa kayu perpustakaan Indonesia</div>
+<div class="judul">Pustaka <b>Nusantara</b></div>
+<div class="btns"><button class="btn" onclick="mulaiGame()">Mulai Jaga</button><button class="btn light" onclick="bukaKoleksi()">Koleksi</button></div>
+<div class="tulis">Toko buku mungil bernuansa kayu perpustakaan Indonesia — jual dongeng & legenda</div>
 </div>
 
-<div id="shop"><div class="shelf" id="shelf"></div><div style="text-align:center;margin:-10px auto 8px;background:#fff;border:2px solid #4A2F1E;border-radius:12px;padding:8px 14px"><div id="bub">Halo!</div><div style="font:700 10px sans-serif"><span id="cn">Bu Ani</span> cari <span id="cw">Sejarah</span></div></div><div class="main"><p id="hint" style="text-align:center;font:700 11px sans-serif">Klik buku yang sesuai!</p><div class="grid" id="grid"></div><div style="display:flex;gap:8px;justify-content:center;margin-top:14px"><button class="ab" style="background:#FFC96A" onclick="gantiPelanggan()">Ganti</button><button class="ab" style="background:#7BC67E;color:#fff" onclick="restockToko()">Restock -10k</button><button class="ab" style="background:#FF8FA3;color:#fff" onclick="tutupToko()">Tutup</button></div></div></div>
+<div id="shop">
+<div class="rak-wrap"><div class="rak" id="shelf"></div></div>
+<div class="counter-area"><div class="counter"><div class="avatar" id="av">👩</div><div class="bubble"><div class="nama" id="cn">Bu Ani</div><div class="want">Mau <i id="cw">Legenda</i> dong!</div></div></div></div>
+<div class="main"><p class="hint" id="hint">Pilih sampul yang sesuai ya!</p><div class="grid" id="grid"></div>
+<div class="actions"><button class="ab" style="background:#FFD37D" onclick="gantiPelanggan()">🙅 Ganti</button><button class="ab" style="background:#A9D8A6" onclick="restockToko()">📦 Restock -10k</button><button class="ab" style="background:#FFB3C1" onclick="tutupToko()">🌙 Tutup</button></div></div>
+</div>
 
-<div id="col"><div class="main"><h3 style="text-align:center">Koleksi</h3><div id="clist" style="display:grid;gap:8px;max-width:600px;margin:0 auto"></div></div></div>
+<div id="col"><div class="main"><h3 style="text-align:center;font-family:Lora;font-style:italic">Koleksi Cerita Rakyat</h3><div id="clist" style="display:grid;gap:10px;max-width:520px;margin:0 auto"></div></div></div>
 
-<div class="credit">by Fitri Qur'an</div>
+<div class="credit">by Fitri Qur'an — Blitar • 2026</div>
 
 <script>
 let D=1,M=0,C=null;
-const B=[{t:"Lutung Kasarung",g:"Legenda"},{t:"Timun Mas",g:"Dongeng"},{t:"Malin Kundang",g:"Legenda"},{t:"Bawang Merah Putih",g:"Dongeng"},{t:"Roro Jonggrang",g:"Sejarah"}];
-const P=[{n:"Bu Ani",w:"Sejarah"},{n:"Dek Sari",w:"Dongeng"},{n:"Mas Budi",w:"Legenda"}];
+const COLORS=["#FFD37D","#A9D8A6","#FFB3C1","#9DC8E8","#D9B8FF"];
+const B=[
+{t:"Timun Mas",g:"Dongeng",c:"#A9D8A6",d:"Lahir dari timun emas, lari dari Buto Ijo pakai biji ajaib."},
+{t:"Bawang Merah Putih",g:"Dongeng",c:"#FFB3C1",d:"Kebaikan Bawang Putih mengalahkan kejahatan tiri."},
+{t:"Roro Jonggrang",g:"Sejarah",c:"#9DC8E8",d:"Minta 1000 candi semalam, mengutuk Bandung jadi arca."},
+{t:"Lutung Kasarung",g:"Legenda",c:"#D9B8FF",d:"Putri dikutuk jadi lutung, pulih karena ketulusan."},
+{t:"Malin Kundang",g:"Legenda",c:"#FFD37D",d:"Anak durhaka dikutuk jadi batu di pantai Air Manis."},
+{t:"Sangkuriang",g:"Legenda",c:"#FFC38A",d:"Menendang perahu jadi Gunung Tangkuban Perahu."},
+{t:"Keong Mas",g:"Dongeng",c:"#9DE0D0",d:"Putri jadi keong emas, diselamatkan cinta tulus."}
+];
+const P=[{n:"Bu Ani",w:"Sejarah",e:"👩‍🏫"},{n:"Dek Sari",w:"Dongeng",e:"👧"},{n:"Mas Budi",w:"Legenda",e:"🧑‍🌾"},{n:"Kak Rina",w:"Dongeng",e:"👩‍🎨"},{n:"Pak RT",w:"Sejarah",e:"👨‍🦳"}];
 let S=[...B].sort(()=>.5-Math.random()).slice(0,5);
-
-function renderToko(){document.getElementById('shelf').innerHTML=S.map(b=>`<div class=bk>${b.t.split(' ')[0]}</div>`).join('');document.getElementById('grid').innerHTML=S.map((b,i)=>`<div class=card onclick="jualBuku(${i})"><b>${b.t}</b><br><small>${b.g}</small></div>`).join('')}
-function gantiPelanggan(){C=P[Math.floor(Math.random()*P.length)];document.getElementById('cn').textContent=C.n;document.getElementById('cw').textContent=C.w;document.getElementById('bub').textContent=`Mau ${C.w} dong!`}
-function jualBuku(i){if(S[i].g===C.w){M+=15;document.getElementById('rp').textContent=M;S.splice(i,1);S.push(B[Math.floor(Math.random()*B.length)]);renderToko();gantiPelanggan()}else{alert(`Salah! Dia mau ${C.w}`)}}
-
-function mulaiGame(){
-  document.getElementById('home').style.display='none';
-  document.getElementById('col').style.display='none';
-  document.getElementById('shop').style.display='flex';
-  document.getElementById('back').style.display='block';
-  renderToko();gantiPelanggan();
+function renderToko(){
+ document.getElementById('shelf').innerHTML=S.map((b,i)=>`<div class=buku-rak style="background:${b.c};border-left-color:#3D2412"><span>${b.t.split(' ')[0]}</span></div>`).join('');
+ document.getElementById('grid').innerHTML=S.map((b,i)=>`<div class=card onclick="jualBuku(${i})"><div class=cover style="background:${b.c}"><b>${b.t}</b><u>${b.g}</u></div><div class=meta><i>${b.g}</i><s>Rp15k</s></div></div>`).join('');
 }
-function bukaKoleksi(){
-  document.getElementById('home').style.display='none';
-  document.getElementById('shop').style.display='none';
-  document.getElementById('col').style.display='flex';
-  document.getElementById('back').style.display='block';
-  document.getElementById('clist').innerHTML=B.map(b=>`<div style="background:#fff;border:2px solid #4A2F1E;border-radius:8px;padding:10px"><b>${b.t}</b> - ${b.g}</div>`).join('');
+function gantiPelanggan(){C=P[Math.floor(Math.random()*P.length)];document.getElementById('cn').textContent=C.n;document.getElementById('cw').textContent=C.w;document.getElementById('av').textContent=C.e;document.getElementById('hint').textContent=`${C.n} cari ${C.w} • klik yang pas!`}
+function jualBuku(i){
+ if(S[i].g===C.w){
+  M+=15;document.getElementById('rp').textContent=M;
+  document.getElementById('hint').textContent=`Yeay! ${C.n} seneng banget! +15k`;
+  document.getElementById('hint').style.color="#2E7D32";
+  setTimeout(()=>{document.getElementById('hint').style.color="";S.splice(i,1);S.push(B[Math.floor(Math.random()*B.length)]);renderToko();gantiPelanggan()},500);
+ }else{
+  document.getElementById('hint').textContent=`Ups, bukan ${S[i].g}. ${C.n} mau ${C.w}!`;
+  document.getElementById('hint').style.color="#C62828";
+ }
 }
-function balikHome(){
-  document.getElementById('shop').style.display='none';
-  document.getElementById('col').style.display='none';
-  document.getElementById('home').style.display='flex';
-  document.getElementById('back').style.display='none';
-}
+function mulaiGame(){document.getElementById('home').style.display='none';document.getElementById('col').style.display='none';document.getElementById('shop').style.display='flex';document.getElementById('back').style.display='block';renderToko();gantiPelanggan()}
+function bukaKoleksi(){document.getElementById('home').style.display='none';document.getElementById('shop').style.display='none';document.getElementById('col').style.display='flex';document.getElementById('back').style.display='block';document.getElementById('clist').innerHTML=B.map(b=>`<div style="background:#fff;border:2.5px solid #3D2412;border-radius:14px;padding:12px;display:flex;gap:12px;box-shadow:0 3px 0 #3D2412"><div style="width:54px;height:54px;border-radius:10px;background:${b.c};border:2px solid #3D2412;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:800">${b.t[0]}</div><div><b style="font-size:13px">${b.t}</b><div style="font:700 10px sans-serif;color:#8B7355;margin:2px 0">${b.g}</div><div style="font:500 11px sans-serif;line-height:1.3">${b.d}</div></div></div>`).join('')}
+function balikHome(){document.getElementById('shop').style.display='none';document.getElementById('col').style.display='none';document.getElementById('home').style.display='flex';document.getElementById('back').style.display='none'}
 function restockToko(){if(M>=10){M-=10;document.getElementById('rp').textContent=M;S=[...B].sort(()=>.5-Math.random()).slice(0,5);renderToko()}}
-function tutupToko(){D++;if(D>7){alert(`Minggu selesai! Omzet Rp ${M}k`);D=1;M=0}document.getElementById('hr').textContent=D;document.getElementById('rp').textContent=M;renderToko();gantiPelanggan()}
+function tutupToko(){D++;if(D>7){alert(`Minggu selesai! Omzet Rp ${M}k 💛`);D=1;M=0}document.getElementById('hr').textContent=D;document.getElementById('rp').textContent=M;renderToko();gantiPelanggan()}
 </script></body></html>
