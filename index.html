@@ -64,7 +64,8 @@ font:700 17px Georgia,serif;padding:26px 6px 14px;text-align:center;box-shadow:i
 .sk{position:absolute;left:0;bottom:0;width:1920px;opacity:.6}.gl{position:absolute;left:600px;top:85px;width:130px;animation:sp 14s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
 .vn4{position:absolute;left:500px;bottom:90px;width:920px}
 #cu.fl .hd img{transform:scaleX(-1)}
-#hc{position:absolute;left:0;top:0;width:1920px;height:1080px;touch-action:none}
+#hc,#wc{position:absolute;left:0;top:0;width:1920px;height:1080px;touch-action:none}
+#rot{position:fixed;inset:0;background:#2b1a0e;color:#f3e6c8;display:none;align-items:center;justify-content:center;font:700 7vw Georgia,serif;text-align:center;padding:20px;z-index:99}@media (orientation:portrait){#rot{display:flex}}
 .pill{position:absolute;left:50%;top:122px;transform:translateX(-50%);white-space:nowrap;background:#f3e6c8;border:5px solid var(--w1);border-radius:40px;padding:8px 36px;font-size:30px;color:var(--w1);font-weight:700}
 #mm{position:absolute;right:30px;top:110px;border:6px solid #3a2210;border-radius:16px}
 #db{position:absolute;left:190px;right:190px;top:70px;height:480px;background:#fffaf0;border-radius:90px 70px 100px 70px;box-shadow:0 14px 0 rgba(0,0,0,.22),inset 0 0 0 8px #eadcbc;display:flex;align-items:center;padding:30px 70px;gap:60px}
@@ -73,6 +74,7 @@ font:700 17px Georgia,serif;padding:26px 6px 14px;text-align:center;box-shadow:i
 
 
 </style></head><body>
+<div id="rot">Putar layar ke mode landscape ya</div>
 <div id="st">
 <div class="scr on" id="menu">
  <div id="hud"><span class="chip">💰 Rp <b class="um">0</b></span><span class="chip"><img class="ci" data-k="cal" alt=""> Hari <b class="hr">1</b></span></div>
@@ -91,6 +93,7 @@ font:700 17px Georgia,serif;padding:26px 6px 14px;text-align:center;box-shadow:i
 </div>
 <div class="scr" id="pro" style="background:linear-gradient(#bfe2f5 0 62%,#e8d3a0 62%)"><img data-k="city" class="cb2" alt=""><img data-k="van" class="vn2" alt=""><div id="sp"><p id="pp"></p><div id="dots"></div></div><button class="btn" id="pn" style="position:absolute;left:50%;bottom:40px;transform:translateX(-50%)">Lanjut</button></div>
 <div class="scr" id="dg" style="background:linear-gradient(#bfe2f5 0 62%,#e8d3a0 62%)"><img data-k="city" class="cb2" alt=""><img data-k="van" class="vn4" alt=""><div id="db"><div id="dp"><div id="dpi"></div><b id="dn"></b></div><div id="dt"></div><span id="da">▼</span></div><button class="btn sm" id="dsk" style="position:absolute;right:30px;top:20px">Lewati</button></div>
+<div class="scr" id="wm"><canvas id="wc" width="1920" height="1080"></canvas><div id="hud"><span class="chip">💰 Rp <b class="um">0</b></span><span class="chip"><img class="ci" data-k="cal" alt=""> Hari <b class="hr">1</b></span><span class="chip bg2"></span></div><div class="pill" id="wi"></div><button class="btn sm" id="wb" style="position:absolute;left:40px;bottom:40px">Menu</button><button class="btn" id="wg" style="position:absolute;left:50%;bottom:40px;transform:translateX(-50%);display:none"></button></div>
 <div class="scr" id="hunt"><canvas id="hc" width="1920" height="1080"></canvas><div id="hud"><span class="chip">💰 Rp <b class="um">0</b></span><span class="chip"><img class="ci" data-k="cal" alt=""> Hari <b class="hr">1</b></span><span class="chip" id="bag"></span></div><div class="pill" id="hi"></div><canvas id="mm" width="220" height="150"></canvas><button class="btn sm" id="hb" style="position:absolute;left:40px;bottom:40px">Peta</button><button class="btn" id="hs" style="position:absolute;right:40px;bottom:40px">Buka Toko</button></div>
 <div class="scr" id="ava"><div class="c" style="top:50px;font-size:70px;font-weight:700;color:var(--w1)">Siapa namamu?</div><div class="c" id="ag" style="top:160px;padding:0 480px"></div><div class="c" style="top:750px"><input id="nm" maxlength="14" placeholder="Ketik namamu" autocomplete="off"></div><div class="c" style="top:900px"><button class="btn" id="go">Mulai Petualangan</button></div></div>
 <div class="scr" id="peta" style="background:linear-gradient(#bfe2f5,#f3e6c8)"><img data-k="sky" class="sk" alt=""><img data-k="globe" class="gl" alt="">
@@ -203,10 +206,40 @@ function kol(){
  '<div class="row"><span>📖 Buku dibaca</span><span>'+S.read.length+' / '+B.length+'</span></div><div class="row"><span>💰 Buku terjual</span><span>'+S.sold.length+' / '+B.length+'</span></div><div class="row"><span>🎁 Oleh-oleh</span><span>'+(S.items.join(', ')||'-')+'</span></div>';
  const c=60000*(S.up+1);$('up').textContent='Upgrade harga Rp '+rp(c);go('kol')}
 $('up').onclick=()=>{const c=60000*(S.up+1);if(S.uang>=c){S.uang-=c;S.up++;save();kol()}else pop('Uang belum cukup',['Butuh Rp '+rp(c)+' untuk upgrade. Layani lebih banyak pelanggan dulu!'])};
-function peta(){
- $('pl').innerHTML=K.map((k,i)=>{const o=i==0||S.done.includes(K[i-1].n),d=S.done.includes(k.n);
- return '<button class="btn city" data-i="'+i+'" '+(o?'':'disabled')+'><span>'+(o?k.e:'<img src="'+IM.lock+'" style="height:104px">')+'</span>'+k.n+'<small>'+(d?'✅ Selesai':o?'Stamp '+(S.st[k.n]||0)+'/'+k.goal:'🔒 Terkunci')+'</small></button>'}).join('');
- $('pl').querySelectorAll('button').forEach(b=>b.onclick=()=>{city=+b.dataset.i;trans('Menuju '+K[city].n+'…',hunt)});go('peta')}
+const CP=[[1040,540],[620,560],[1570,610]],wc=$('wc'),vani=new Image(),lki=new Image(),unl=i=>i==0||S.done.includes(K[i-1].n);
+let wv={x:1040,y:650,tx:null,ty:null,f:1,w:0},wraf=0,wlast=0,wnear=-1,wd=false;
+function peta(){const p=CP[city]||CP[0];wv.x=p[0];wv.y=p[1]+110;wv.tx=null;vani.src=IM.van;lki.src=IM.lock;
+ $('wi').textContent='Tap untuk mengemudi · dekati kota untuk masuk';document.querySelectorAll('.bg2').forEach(e=>e.textContent='Tas: '+S.stok.length+' buku');
+ go('wm');wlast=performance.now();if(!wraf)wraf=requestAnimationFrame(wloop)}
+function wset(e){const q=wc.getBoundingClientRect();wv.tx=(e.clientX-q.left)/q.width*1920;wv.ty=(e.clientY-q.top)/q.height*1080}
+wc.addEventListener('pointerdown',e=>{wd=true;try{wc.setPointerCapture(e.pointerId)}catch(_){}wset(e)});
+wc.addEventListener('pointermove',e=>{if(wd)wset(e)});
+['pointerup','pointercancel'].forEach(n=>wc.addEventListener(n,()=>{wd=false}));
+$('wb').onclick=()=>go('menu');
+$('wg').onclick=()=>{const i=wnear;if(i<0)return;if(!unl(i)){pop('Kota terkunci',['Isi stamp di '+K[i-1].n+' sampai penuh dulu, baru perjalanan ke '+K[i].n+' terbuka.'],'Oke');return}city=i;trans('Menuju '+K[i].n+'…',hunt)};
+function wloop(t){if(!$('wm').classList.contains('on')){wraf=0;return}
+ const dt=Math.min(.05,(t-wlast)/1000||.016);wlast=t;
+ if(wv.tx!=null){const dx=wv.tx-wv.x,dy=wv.ty-wv.y,d=Math.hypot(dx,dy);if(d<6)wv.tx=null;else{const v=Math.min(d,380*dt);wv.x+=dx/d*v;wv.y+=dy/d*v;if(Math.abs(dx)>4)wv.f=dx>0?1:-1;wv.w+=dt*14;if(AC&&snd()&&Math.random()<.06)note(80+Math.random()*30,.04,.12,'sawtooth')}}
+ wv.x=Math.max(80,Math.min(1840,wv.x));wv.y=Math.max(200,Math.min(1000,wv.y));
+ wnear=CP.findIndex(p=>Math.hypot(p[0]-wv.x,p[1]-wv.y)<190);
+ $('wg').style.display=wnear>=0?'block':'none';if(wnear>=0)$('wg').textContent='Masuk '+K[wnear].n;
+ wdraw(t);wraf=requestAnimationFrame(wloop)}
+function wdraw(t){const c=wc.getContext('2d');
+ const g=c.createLinearGradient(0,0,0,1080);g.addColorStop(0,'#bfe7f2');g.addColorStop(1,'#8fd0e6');c.fillStyle=g;c.fillRect(0,0,1920,1080);
+ c.fillStyle='rgba(255,255,255,.5)';for(let i=0;i<30;i++){const x=(i*173+t/30)%1980-30,y=170+(i*97)%800;c.fillRect(x,y+Math.sin(t/500+i)*4,60,6)}
+ const I=[[520,560,260,90],[780,530,300,100],[1020,560,260,90],[620,615,140,60],[1360,590,60,42],[1570,615,120,80]];
+ c.fillStyle='#f3e6b0';I.forEach(a=>{c.beginPath();c.ellipse(a[0],a[1],a[2]+22,a[3]+22,0,0,7);c.fill()});
+ c.fillStyle='#9ccf6e';I.forEach(a=>{c.beginPath();c.ellipse(a[0],a[1],a[2],a[3],0,0,7);c.fill()});
+ c.fillStyle='rgba(50,100,40,.45)';c.font='700 40px Georgia';c.textAlign='center';c.fillText('JAWA',830,640);c.fillText('LOMBOK',1570,740);
+ c.lineCap='round';c.setLineDash([16,16]);c.lineWidth=8;c.strokeStyle='#8a6a42';c.beginPath();c.moveTo(CP[1][0],CP[1][1]);c.lineTo(CP[0][0],CP[0][1]);c.stroke();
+ c.strokeStyle='#ffffff';c.beginPath();c.moveTo(CP[0][0],CP[0][1]);c.lineTo(CP[2][0],CP[2][1]);c.stroke();c.setLineDash([]);
+ CP.forEach((p,i)=>{const o=unl(i),k=K[i],n=S.st[k.n]||0;
+  if(i==wnear){c.strokeStyle='#f2c94c';c.lineWidth=8;c.beginPath();c.arc(p[0],p[1],66+Math.sin(t/200)*5,0,7);c.stroke()}
+  c.beginPath();c.arc(p[0],p[1],54,0,7);c.fillStyle=o?k.bg:'#c9c9c9';c.fill();c.lineWidth=7;c.strokeStyle='#3a2210';c.stroke();
+  c.fillStyle='#3a2210';c.textAlign='center';c.font='700 34px Georgia';c.fillText(k.n,p[0],p[1]-76);
+  if(o){c.font='700 34px Georgia';c.fillText(S.done.includes(k.n)?'✓':n+'/'+k.goal,p[0],p[1]+12)}else if(lki.complete)c.drawImage(lki,p[0]-30,p[1]-30,60,60)});
+ const b=wv.tx!=null?Math.sin(wv.w)*4:0;c.fillStyle='rgba(0,0,0,.2)';c.beginPath();c.ellipse(wv.x,wv.y+52,86,14,0,0,7);c.fill();
+ c.save();c.translate(wv.x,wv.y+b);c.scale(wv.f,1);if(vani.complete)c.drawImage(vani,-90,-56,180,102);c.restore()}
 const PR=['Di sebuah kota kecil di Blitar, terparkir sebuah van buku tua milik kakekmu. Dulu, anak-anak berebut duduk di sekitarnya setiap sore untuk mendengar dongeng dan cerita rakyat.','Kakek kini sudah terlalu tua untuk berkeliling. Di laci van, kamu menemukan sepucuk surat: “Cerita adalah rumah bagi ingatan kita. Bawalah van ini keliling Nusantara, dan pertemukan setiap buku dengan pembacanya.”','Dari Blitar, kamu menyalakan mesin van itu. Yogyakarta, Lombok, dan kota-kota lain sudah menunggu. Setiap kota punya cerita dan teman baru, tanpa perlu terburu-buru.'];
 function trans(x,f){$('lt').textContent=x;$('ld').classList.add('on');setTimeout(()=>{f();$('ld').classList.remove('on')},2000)}
 let pi=0,sa=0;
