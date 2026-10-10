@@ -75,6 +75,7 @@ font:700 17px Georgia,serif;padding:26px 6px 14px;text-align:center;box-shadow:i
  <div id="hud"><span class="chip">💰 Rp <b class="um">0</b></span><span class="chip"><img class="ci" data-k="cal" alt=""> Hari <b class="hr">1</b></span></div>
  <div class="c" style="top:230px"><h1>Pustaka<br>Nusantara</h1></div>
  <div class="c" style="top:700px"><button class="btn" id="bm">Mulai</button>&nbsp;&nbsp;&nbsp;<button class="btn" id="bk">Koleksi</button>&nbsp;&nbsp;&nbsp;<button class="btn" id="bp">Profil</button>&nbsp;&nbsp;&nbsp;<button class="btn" id="bpr">Prolog</button></div>
+ <div class="c" style="top:930px;font-size:30px;opacity:.7">Toko buku mungil bernuansa kayu perpustakaan Indonesia</div>
  
 </div>
 <div class="scr" id="shop">
@@ -100,6 +101,7 @@ font:700 17px Georgia,serif;padding:26px 6px 14px;text-align:center;box-shadow:i
  <div id="kl"></div>
  <div class="c" style="top:930px"><button class="btn" id="up">Upgrade</button>&nbsp;&nbsp;&nbsp;<button class="btn" id="kb">Kembali</button></div>
 </div>
+<button class="btn sm" id="sb" style="position:absolute;right:220px;top:18px;z-index:8"></button>
 <div id="ld"><img data-k="map" id="lm" alt=""><div id="lt"></div></div>
 <div id="pop"><div id="bx"><h2 id="pt"></h2><div id="pb"></div><button class="btn" id="pc" style="margin-top:20px">Tutup</button></div></div>
 </div>
@@ -178,11 +180,11 @@ function leave(){const c=$('cu');cur=null;c.classList.remove('sel');document.que
 function tapBook(b){
  if(cur&&cur.sel&&cur.ready){
   if(b.t==cur.want.t){const p=15000+S.up*5000;S.uang+=p;if(!S.sold.includes(b.t))S.sold.push(b.t);
-   $('bub').textContent='Makasih, '+S.nm+'! +Rp '+rp(p);cur.ready=false;ok++;stamp();hud();save();T(leave,1200)}
-  else{cur.tries++;$('bub').textContent='Hmm, sepertinya bukan yang ini...';
+   $('bub').textContent='Makasih, '+S.nm+'! +Rp '+rp(p);cur.ready=false;ok++;stamp();sfx('ok');hud();save();T(leave,1200)}
+  else{cur.tries++;sfx('no');$('bub').textContent='Hmm, sepertinya bukan yang ini...';
    if(cur.tries>=2){cur.ready=false;$('bub').textContent='Aku cari di toko lain.';T(leave,1200)}}
  }else{
-  if(!S.read.includes(b.t)){S.read.push(b.t);save()}
+  sfx('tap');if(!S.read.includes(b.t)){S.read.push(b.t);save()}
   pop(b.t,b.s);
  }
 }
@@ -214,9 +216,26 @@ const K1='Kakek Darsa',PRL=[{p:'kakek',n:K1,t:'Selamat datang di Blitar, Nak. Ak
 const POST=()=>[{p:'kakek',n:K1,t:S.nm+'... nama yang bagus! Kakek yakin kamu cocok jadi penjaga buku keliling.'},{p:'kakek',n:K1,t:'Kita mulai dari Blitar. Yogyakarta, Lombok, dan kota-kota lain sudah menunggu. Tak perlu terburu-buru ya.'}];
 let DL=[],di=0,dd=null,tt=null,full='';
 function dlg(L,f){DL=L;di=0;dd=f;go('dg');line()}
-function line(){const l=DL[di];$('dpi').innerHTML=PORT[l.p];$('dn').textContent=l.n;full=l.t;let i=0;$('dt').textContent='';$('da').style.visibility='hidden';clearInterval(tt);tt=setInterval(()=>{i++;$('dt').textContent=full.slice(0,i);if(i>=full.length){clearInterval(tt);tt=null;$('da').style.visibility='visible'}},28)}
+function line(){const l=DL[di];$('dpi').innerHTML=PORT[l.p];$('dn').textContent=l.n;full=l.t;let i=0;$('dt').textContent='';$('da').style.visibility='hidden';clearInterval(tt);tt=setInterval(()=>{i++;$('dt').textContent=full.slice(0,i);if(AC&&snd()&&i%2==0)note(520+Math.random()*180,.035,.06,'sine');if(i>=full.length){clearInterval(tt);tt=null;$('da').style.visibility='visible'}},28)}
 $('dg').onclick=()=>{if(tt){clearInterval(tt);tt=null;$('dt').textContent=full;$('da').style.visibility='visible';return}di++;if(di<DL.length)line();else dd&&dd()};
 $('dsk').onclick=e=>{e.stopPropagation();clearInterval(tt);tt=null;dd&&dd()};
+let AC=null,MG=null,mb=0,mp=2;
+const snd=()=>S.snd!==false,PN=[523.25,587.33,659.25,783.99,880,1046.5];
+function note(f,v,d,ty){const t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();o.type=ty||'triangle';o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.01);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(MG);o.start(t);o.stop(t+d+.05)}
+function sfx(k){if(!AC||!snd())return;if(k=='tap')note(660,.08,.12,'sine');else if(k=='ok'){[784,988,1175].forEach((f,i)=>setTimeout(()=>note(f,.09,.45,'sine'),i*110))}else note(240,.07,.3,'sine')}
+function chirp(){if(AC&&snd()){const t=AC.currentTime,n=2+Math.floor(Math.random()*3),f=2200+Math.random()*1200;for(let i=0;i<n;i++){const o=AC.createOscillator(),g=AC.createGain(),s=t+i*.12;o.type='sine';o.frequency.setValueAtTime(f,s);o.frequency.exponentialRampToValueAtTime(f*1.4,s+.08);g.gain.setValueAtTime(0,s);g.gain.linearRampToValueAtTime(.04,s+.02);g.gain.exponentialRampToValueAtTime(.001,s+.1);o.connect(g);g.connect(MG);o.start(s);o.stop(s+.12)}}setTimeout(chirp,3000+Math.random()*6000)}
+function aInit(){
+ if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(!C)return;AC=new C();MG=AC.createGain();MG.gain.value=snd()?.8:0;MG.connect(AC.destination);
+  const b=AC.createBuffer(1,AC.sampleRate*2,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+  const s=AC.createBufferSource();s.buffer=b;s.loop=true;const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=500;const g=AC.createGain();g.gain.value=.05;
+  const l=AC.createOscillator(),lg=AC.createGain();l.frequency.value=.15;lg.gain.value=.03;l.connect(lg);lg.connect(g.gain);s.connect(f);f.connect(g);g.connect(MG);s.start();l.start();
+  setTimeout(chirp,2000);
+  setInterval(()=>{if(!snd())return;mb++;if(mb%2==0||Math.random()<.6){mp=Math.max(0,Math.min(PN.length-1,mp+[-2,-1,-1,1,1,2][Math.floor(Math.random()*6)]));note(PN[mp],.06,1.2)}if(mb%8==0)note([261.63,196,220,174.6][(mb/8)%4|0],.05,3.2,'sine')},420)}
+ if(AC.state=='suspended')AC.resume()}
+document.addEventListener('click',e=>{aInit();if(e.target.closest&&e.target.closest('.btn'))sfx('tap')},true);
+document.addEventListener('visibilitychange',()=>{if(AC)document.hidden?AC.suspend():AC.resume()});
+const sbl=()=>$('sb').textContent=snd()?'Suara: ON':'Suara: OFF';
+$('sb').onclick=()=>{S.snd=!snd();save();if(MG)MG.gain.value=snd()?.8:0;sbl()};sbl();
 $('bm').onclick=()=>S.nm?peta():dlg(PRL,ava);
 $('bpr').onclick=()=>dlg(S.nm?PRL.slice(0,3):PRL,S.nm?()=>go('menu'):ava);$('pb2').onclick=()=>go('menu');
 $('bk').onclick=kol;$('kb').onclick=()=>go('menu');$('mn').onclick=()=>{run++;clearTimeout(tm);cur=null;go('menu')};
